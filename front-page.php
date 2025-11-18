@@ -8,17 +8,16 @@ get_header();
 <main class="home">
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-inner">
-      <h1 class="hero-logo" aria-label="Bake and Swap">
-        <span class="hero-line hero-line-top">bake</span>
-        <span class="hero-line hero-line-bottom">&amp; swap</span>
-      </h1>
+<section class="hero">
+  <div class="hero-inner">
 
-      <p class="hero-subline">
-        Interaktive, designorientierte Backrezepte – mit einem Klick in eine vegane Variante verwandelbar.
-      </p>
+    <div class="hero-logo-img">
+      <img 
+        src="<?php echo get_template_directory_uri(); ?>/assets/bake&swap.png" 
+        alt="Bake & Swap Logo"
+      >
     </div>
+  </div>
 
     <!-- Dekobilder (später mit deinen freigestellten PNGs ersetzen) -->
     <img
