@@ -9,13 +9,18 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<?php if ( !is_front_page() ) : ?>
+<?php if ( ! is_front_page() ) : ?>
   <header class="site-header">
     <div class="site-header-inner">
       <a href="<?php echo esc_url( home_url('/') ); ?>" class="site-title-link">
-        <?php bloginfo('name'); ?>
+        <img 
+          src="<?php echo get_template_directory_uri(); ?>/assets/bake&swap.png"
+          alt="bake &amp; swap"
+          class="site-logo-img"
+        >
       </a>
       <!-- hier könntest du später ein Menü einbauen -->
     </div>
   </header>
 <?php endif; ?>
+

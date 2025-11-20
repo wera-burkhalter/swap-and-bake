@@ -13,7 +13,7 @@ get_header();
 
     <div class="hero-logo-img">
       <img 
-        src="<?php echo get_template_directory_uri(); ?>/assets/bake&swap.png" 
+        src="<?php echo get_template_directory_uri(); ?>/assets/img/bake&swap.png" 
         alt="Bake & Swap Logo"
       >
     </div>
@@ -49,18 +49,11 @@ get_header();
   </section>
 
 
-  <!-- TRENNER (Zuckerstangen-Streifen etc.) -->
-  <section class="stripe-sep" aria-hidden="true"></section>
-
-
   <!-- LIEBLINGSREZEPTE -->
   <section class="favorites">
     <div class="favorites-inner">
       <header class="favorites-header">
         <h2>lieblings<br>rezepte</h2>
-        <p class="favorites-sub">
-          Kleine, feine Auswahl an Rezepten – von chewy Cookies bis zum zitronig-frischen Kuchen.
-        </p>
       </header>
 
       <div class="fav-grid">
