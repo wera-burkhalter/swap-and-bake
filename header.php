@@ -1,6 +1,8 @@
 <?php
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
+  <?php wp_head(); ?>
+<link rel="stylesheet" href="https://use.typekit.net/yzl8lpa.css">
 <head>
   <meta charset="<?php bloginfo('charset'); ?>" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />

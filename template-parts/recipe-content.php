@@ -9,12 +9,11 @@ $hero_image = get_field('hero_bild');
 
 <article <?php post_class('recipe-single'); ?>>
 
-  <!-- HERO: Bild über volle Breite, Titel ausgeblendet -->
   <?php if ($hero_image) : ?>
     <section class="recipe-hero">
       <div class="recipe-hero-inner">
-        <img 
-          src="<?php echo esc_url($hero_image['url']); ?>" 
+        <img
+          src="<?php echo esc_url($hero_image['url']); ?>"
           alt="<?php echo esc_attr($hero_image['alt'] ?: get_the_title()); ?>"
           class="recipe-hero-img"
         >
@@ -27,15 +26,16 @@ $hero_image = get_field('hero_bild');
 
       <!-- Zutaten & Zubereitung in 2 Spalten -->
       <section class="recipe-main-block">
-
         <div class="recipe-columns">
 
           <!-- SPALTE 1: Zutaten (ohne Überschrift "Zutaten") -->
           <div class="recipe-col recipe-col-ingredients">
             <?php if (have_rows('zutaten_normal')) : ?>
               <ul class="ingredients-list">
-                <?php while (have_rows('zutaten_normal')) : the_row(); 
-                  $menge  = get_sub_field('menge');
+                <?php
+                while (have_rows('zutaten_normal')) :
+                  the_row();
+                  $menge   = get_sub_field('menge');
                   $einheit = get_sub_field('einheit');
                   $zutat   = get_sub_field('zutat');
                 ?>
@@ -61,7 +61,9 @@ $hero_image = get_field('hero_bild');
 
             <?php if (have_rows('zubereitung')) : ?>
               <ol class="steps-list">
-                <?php while (have_rows('zubereitung')) : the_row(); 
+                <?php
+                while (have_rows('zubereitung')) :
+                  the_row();
                   $nr  = get_sub_field('nr');
                   $txt = get_sub_field('beschreibung');
                 ?>
@@ -77,16 +79,17 @@ $hero_image = get_field('hero_bild');
           </div>
 
         </div><!-- .recipe-columns -->
-
       </section>
 
-      <!-- TIPPS & HINWEISE -->
+      <!-- TIPPS & HINWEISE (normale Tipps) -->
       <?php if (have_rows('tipps')) : ?>
         <section class="recipe-tips">
           <h2 class="recipe-section-title tips-title">tipps &amp; hinweise</h2>
 
           <div class="tips-grid">
-            <?php while (have_rows('tipps')) : the_row(); 
+            <?php
+            while (have_rows('tipps')) :
+              the_row();
               $titel = get_sub_field('title');
               $text  = get_sub_field('beschreibung');
             ?>
@@ -103,8 +106,16 @@ $hero_image = get_field('hero_bild');
         </section>
       <?php endif; ?>
 
-    </div>
+      <?php
+      /**
+       * Hinweis:
+       * Deine veganen Felder (z.B. "zutaten_vegan", "tipps_vegan") werden hier
+       * aktuell noch nicht ausgegeben. Wenn du möchtest, können wir sie in einem
+       * nächsten Schritt als separaten Block "vegane variante" darunter ergänzen.
+       */
+      ?>
+
+    </div><!-- .recipe-main-inner -->
   </main>
 
 </article>
- 

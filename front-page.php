@@ -52,48 +52,71 @@ get_header();
   <!-- LIEBLINGSREZEPTE -->
   <section class="favorites">
     <div class="favorites-inner">
+
       <header class="favorites-header">
-        <h2>lieblings<br>rezepte</h2>
+        <h2 class="favorites-title">lieblings-<br>rezepte</h2>
       </header>
 
-      <div class="fav-grid">
-        <?php
-        $fav_query = new WP_Query([
-          'post_type'      => 'recipe',
-          'posts_per_page' => 6,
-          'orderby'        => 'date',
-          'order'          => 'DESC',
-        ]);
+      <?php
+      // Query: nur Rezepte mit Startseite-Häkchen
+      $fav_query = new WP_Query([
+        'post_type'      => 'recipe',
+        'posts_per_page' => 3,            // max. 3
+        'meta_query'     => [
+          [
+            'key'   => 'startseite',      // ACF-Feldname
+            'value' => '1',
+          ]
+        ],
+      ]);
+      ?>
 
-        if ($fav_query->have_posts()) :
-          while ($fav_query->have_posts()) : $fav_query->the_post(); ?>
-            <article class="recipe-card">
-              <a href="<?php the_permalink(); ?>">
-                <?php if (has_post_thumbnail()) : ?>
-                  <div class="recipe-card-img">
-                    <?php the_post_thumbnail('medium_large'); ?>
-                  </div>
-                <?php endif; ?>
-
-                <h3 class="recipe-card-title"><?php the_title(); ?></h3>
-              </a>
-            </article>
+      <?php if ( $fav_query->have_posts() ) : ?>
+        <div class="fav-layout">
           <?php
-          endwhile;
-          wp_reset_postdata();
-        else :
-          echo '<p>Noch keine Rezepte angelegt.</p>';
-        endif;
-        ?>
-      </div>
+          $index = 0;
+          while ( $fav_query->have_posts() ) :
+            $fav_query->the_post();
+            $index++;
+
+            // ACF Bild holen
+            $image = get_field('startseite_bild');
+            if ( ! $image ) {
+              // Fallback: Beitragsbild
+              if ( has_post_thumbnail() ) {
+                $image_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+                $image_alt = get_the_title();
+              } else {
+                continue; // nichts anzeigen, wenn gar kein Bild
+              }
+            } else {
+              $image_url = $image['url'];
+              $image_alt = $image['alt'] ?: get_the_title();
+            }
+
+            // Position-Klasse je nach Index (1,2,3) -> fürs Layout
+            $pos_class = 'fav-item-' . $index;
+          ?>
+            <a class="fav-item <?php echo esc_attr( $pos_class ); ?>"
+               href="<?php the_permalink(); ?>">
+              <img src="<?php echo esc_url( $image_url ); ?>"
+                   alt="<?php echo esc_attr( $image_alt ); ?>">
+            </a>
+          <?php endwhile; wp_reset_postdata(); ?>
+        </div>
+      <?php else : ?>
+        <p>Lege in den Rezepten welche mit „Startseite“-Häkchen fest.</p>
+      <?php endif; ?>
 
       <div class="favorites-cta">
         <a class="btn" href="<?php echo esc_url( site_url('/rezepte/') ); ?>">
           Alle Rezepte ansehen
         </a>
       </div>
+
     </div>
   </section>
+
 
 </main>
 

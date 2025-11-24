@@ -16,9 +16,9 @@
   font-display: swap;
 }
 :root {
-  --cream: #f5efe4;
-  --red:   #c43b3b;
-  --brown: #4b2f25;
+  --cream: #fffdf7;   /* Hintergrund */
+  --red:   #c62039;   /* Professor-Rot */
+  --brown: #512917;  /* Text-Braun wie im Figma */
 }
 
 body {
@@ -28,7 +28,7 @@ body {
   font-weight: 200;
   font-size: 30px;
   line-height: 1.4;
-  color: #3c2b1d; /* Brauton wie im Figma */
+  color: var(--brown);
 }
 
 img { max-width: 100%; display: block; }
@@ -42,15 +42,22 @@ img { max-width: 100%; display: block; }
 /* HERO */
 .hero {
   position: relative;
-  min-height: 80vh;
+  min-height: 72vh;                 /* etwas weniger, damit der Pfeil früher kommt */
   display: grid;
   place-items: center;
-  padding: 4rem 1.5rem 5rem;
+  padding: 3rem 1.5rem 4rem;        /* oben & unten etwas kleiner */
   overflow: hidden;
 }
 
 .hero-inner {
   text-align: center;
+}
+.hero-logo-img img {
+  max-width: 1200px;                 /* grob wie im Figma */
+  width: min(120vw, 1200px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .hero-logo {
@@ -110,53 +117,114 @@ img { max-width: 100%; display: block; }
 
 /* INTRO */
 .intro {
-  padding: 3rem 1.5rem;
+  padding: 7rem 5rem;
 }
 
 .intro-inner {
   max-width: 40rem;
   margin-inline: auto;
 }
-
-/* STREIFEN / SEPARATOR */
-.stripe-sep {
-  height: 110px;
-  background-image:
-    repeating-linear-gradient(
-      135deg,
-      transparent 0 14px,
-      var(--red) 14px 26px
-    );
-  mask-image: linear-gradient(#000 60%, transparent);
-}
-
-/* FAVORITES */
-.favorites {
-  padding: 3.5rem 1.5rem 4rem;
-}
-
-.favorites-inner {
-  max-width: 60rem;
-  margin-inline: auto;
-}
-
-.favorites-header h2 {
-  font-family: "Georgia", "Times New Roman", serif;
-  font-size: clamp(32px, 5vw, 56px);
-  text-transform: lowercase;
+.intro-inner p {
+  font-size: 1.4rem;      /* kleiner als Standard-Body */
+  line-height: 1.6;
+  text-align: justify;    /* Blocksatz */
   margin: 0;
 }
 
-.favorites-sub {
-  max-width: 26rem;
-  margin-top: 0.75rem;
+/* FAVORITES – wie im Figma */
+
+.favorites {
+  padding: 4rem 3rem 5rem;
 }
 
-.fav-grid {
-  margin-top: 2rem;
-  display: grid;
-  gap: 1.8rem;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+.favorites-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Titel "lieblings- / rezepte" links, leicht versetzt */
+.favorites-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.8rem, 4vw, 3.6rem);
+  line-height: 1.05;
+  margin: 0;
+  color: var(--brown);
+  text-transform: lowercase;
+}
+
+/* Bühne für die drei Bilder */
+.fav-layout {
+  position: relative;
+  margin-top: 3rem;
+  height: 360px;         /* „Arbeitsfläche“ für die Bilder */
+}
+
+/* Grundstil für alle drei Favoriten-Bilder */
+.fav-item {
+  position: absolute;
+  display: block;
+}
+
+.fav-item img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Positionen – kannst du mit top/left/right noch feintunen */
+.fav-item-1 {          
+  left: 10%;
+  top: 45%;
+  max-width: 550px;
+}
+
+.fav-item-2 {          
+  left: 50%;
+  top: 22%;
+  transform: translateX(-50%);
+  max-width: 550px;
+}
+
+.fav-item-3 {         
+  right: 10%;
+  top: 32%;
+  max-width: 550px;
+}
+
+/* Button zentriert darunter */
+.favorites-cta {
+  margin-top: 3rem;
+}
+
+/* Mobile Anpassung */
+@media (max-width: 900px) {
+  .favorites {
+    padding-inline: 1.5rem;
+  }
+
+  .fav-layout {
+    height: 260px;
+  }
+
+  .fav-item-1 {
+    left: 4%;
+    top: 50%;
+    max-width: 130px;
+  }
+
+  .fav-item-2 {
+    top: 18%;
+    max-width: 170px;
+  }
+
+  .fav-item-3 {
+    right: 4%;
+    top: 50%;
+    max-width: 130px;
+  }
 }
 
 .recipe-card {
@@ -224,326 +292,168 @@ h1, h2, h3, .title, .favorites-header h2 {
 }
 
 /* -------------------------------------------
-   RECIPE PAGE LAYOUT
+   REZEPTSEITEN (CPT: recipe)
 ------------------------------------------- */
 
+/* Container der einzelnen Rezeptseite */
 .recipe-page {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto 6rem;
-  padding: 6rem 2rem 8rem;
+  padding: 3rem 3rem 6rem;
 }
 
-/* HERO ---------------------------------------------------- */
+/* Standard-WP-Titel auf Rezeptseiten verstecken (falls er doch irgendwo auftaucht) */
+.single-recipe .entry-title {
+  display: none;
+}
+
+/* -------------------------------------------
+   HERO: Bild oben über die ganze Breite
+------------------------------------------- */
+
+.recipe-hero {
+  margin: 0 0 4rem;
+}
 
 .recipe-hero-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4rem;
-  margin-bottom: 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.recipe-hero-figure img {
-  display: block;
-  max-width: 360px;
-  height: auto;
-}
-
-.recipe-hero-text {
-  flex: 1;
-}
-
-.recipe-title {
-  font-family: "AbadiMTStd-Italic", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  font-weight: 400;
-  font-size: 4.5rem;
-  line-height: 1;
-  margin: 0 0 1.5rem;
-  text-transform: lowercase;
-}
-
-.recipe-title-part-1,
-.recipe-title-part-2 {
-  display: block;
-}
-
-.recipe-hero-adjectives {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  font-family: "AbadiMTStd-Italic", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  font-size: 1.3rem;
-}
-
-.recipe-hero-adj-item {
-  position: relative;
-}
-
-.recipe-short-desc {
-  font-size: 1.1rem;
-  max-width: 32rem;
-}
-
-/* SECTIONS ------------------------------------------------ */
-
-.recipe-section {
-  margin-bottom: 6rem;
-}
-
-.recipe-section-inner {
-  /* nichts Spezielles, aber falls du später etwas zentrieren willst */
-}
-
-.recipe-section-title {
-  font-family: "AbadiMTStd-Italic", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  font-size: 2.6rem;
-  margin: 0 0 2.5rem;
-  text-transform: lowercase;
-}
-
-.recipe-section-title-center {
-  text-align: center;
-}
-
-/* ZUTATEN ------------------------------------------------- */
-
-.recipe-ingredients-columns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4rem;
-}
-
-.recipe-ingredients-block {
-  flex: 1 1 260px;
-}
-
-.recipe-ingredients-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.recipe-ing-row {
-  display: flex;
-  gap: 2rem;
-  align-items: baseline;
-  margin-bottom: 0.4rem;
-}
-
-.recipe-ing-amount {
-  min-width: 110px;
-  font-family: "AbadiMTStd-ExtraLight", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-style: italic;
-}
-
-.recipe-ing-name {
-  flex: 1;
-}
-
-/* ZUBEREITUNG -------------------------------------------- */
-
-.recipe-prep-steps {
-  list-style: none;
-  padding: 0;
-  margin: 3rem 0 0;
-}
-
-.recipe-prep-step {
-  margin-bottom: 1.75rem;
-}
-
-.recipe-prep-step-inner {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.recipe-prep-step-number {
-  font-family: "AbadiMTStd-Italic", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  font-size: 2rem;
-  line-height: 1;
-}
-
-.recipe-prep-step-text {
-  margin: 0;
-  max-width: 46rem;
-}
-
-/* TIPPS & HINWEISE --------------------------------------- */
-
-.recipe-tips-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3rem 4rem;
-  margin-top: 3rem;
-}
-
-.recipe-tip-title {
-  font-family: "AbadiMTStd-Italic", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  font-size: 1.8rem;
-  margin: 0 0 0.8rem;
-}
-
-.recipe-tip-list {
-  margin: 0;
-  padding-left: 1.3rem;
-}
-
-/* RESPONSIVE --------------------------------------------- */
-
-@media (max-width: 900px) {
-  .recipe-hero-inner {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .recipe-hero-text {
-    max-width: 32rem;
-  }
-
-  .recipe-ingredients-columns {
-    flex-direction: column;
-  }
-
-  .recipe-tips-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .recipe-page {
-    padding-top: 3rem;
-  }
-}
-
-/* Grundlayout Rezeptseite */
-.recipe-page {
-  max-width: 1100px;
-  margin: 0 auto 6rem;
-  padding: 4rem 1.5rem 6rem;
-}
-
-/* HERO: Bild links, Titel rechts */
-.recipe-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  align-items: center;
-  column-gap: 4rem;
-  margin-bottom: 4rem;
-}
-
-.recipe-hero-media img {
+.recipe-hero-img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* Titel */
-.recipe-title {
-  font-family: "AbadiMTStd-Italic", system-ui, sans-serif;
-  font-size: clamp(3rem, 4vw, 4.5rem);
-  font-weight: 400;
-  margin: 0 0 1.5rem;
+/* -------------------------------------------
+   HAUPTBEREICH: Zutaten & Zubereitung
+------------------------------------------- */
+
+.recipe-main-inner {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.recipe-intro {
-  font-family: "AbadiMTStd-ExtraLight", system-ui, sans-serif;
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-/* Hauptbereich: Zutaten links, Zubereitung rechts */
-.recipe-main {
+.recipe-columns {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-  column-gap: 5rem;
-  row-gap: 4rem;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
+  column-gap: 4rem;
+  align-items: flex-start;
 }
 
-.recipe-section-title {
-  font-family: "AbadiMTStd-Italic", system-ui, sans-serif;
-  font-size: 2.5rem;
-  margin: 0 0 2rem;
+/* Zutaten-Spalte (kein extra Titel "Zutaten") */
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Zutaten – „Tabelle“ */
-.ingredients-table {
-  display: grid;
-  row-gap: 0.4rem;
-}
-
-.ingredient-row {
-  display: grid;
-  grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr);
-  column-gap: 1.5rem;
+.ingredient-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
 }
 
 .ingredient-amount {
+  min-width: 7rem;         /* sorgt für schöne vertikale Ausrichtung */
   text-align: right;
   font-style: italic;
 }
 
-.ingredient-menge {
-  display: inline-block;
-  min-width: 3.5rem;
+.ingredient-unit {
+  margin-left: 0.25rem;
 }
 
-/* Zubereitungsschritte */
-.recipe-steps-list {
-  display: grid;
-  row-gap: 1.8rem;
+.ingredient-name {
+  flex: 1;
 }
 
-.recipe-step {
+/* Zubereitung (rechte Spalte) */
+
+.recipe-section-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-size: 2.3rem;
+  margin: 0 0 1.5rem;
+  text-transform: lowercase;
+}
+
+.steps-list {
+  list-style: none;         /* keine Standard-Zahlen */
+  padding: 0;
+  margin: 0;
+}
+
+.step-item {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   column-gap: 1.5rem;
+  margin-bottom: 1.6rem;
 }
 
-.recipe-step-number {
-  font-family: "AbadiMTStd-Italic", system-ui, sans-serif;
+.step-number {
+  font-family: "Abadi Italic", sans-serif;
   font-size: 1.8rem;
 }
 
-.recipe-step-text {
-  font-size: 1.05rem;
+.step-text {
+  margin: 0;
+  font-size: 1.02rem;
   line-height: 1.7;
 }
 
-/* Tipps & Hinweise */
+/* -------------------------------------------
+   TIPPS & HINWEISE
+------------------------------------------- */
+
 .recipe-tips {
   margin-top: 5rem;
 }
 
-.recipe-tips-title {
+.tips-title {
   text-align: center;
   margin-bottom: 3rem;
 }
 
-.recipe-tips-grid {
+.tips-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 4rem;
   row-gap: 2.5rem;
 }
 
-.recipe-tip-title {
-  font-family: "AbadiMTStd-Italic", system-ui, sans-serif;
-  font-size: 1.7rem;
-  margin-bottom: 0.8rem;
+.tip-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-size: 1.6rem;
+  margin: 0 0 0.6rem;
 }
 
-.recipe-tip-text {
+.tip-text {
+  margin: 0;
   font-size: 1rem;
   line-height: 1.7;
 }
+
+/* -------------------------------------------
+   RESPONSIVE
+------------------------------------------- */
+
+@media (max-width: 900px) {
+  .recipe-page {
+    padding-inline: 1.5rem;
+  }
+
+  .recipe-columns {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 3rem;
+  }
+
+  .tips-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 
 /* Header mit Logo */
 .site-header {
@@ -596,5 +506,270 @@ h1, h2, h3, .title, .favorites-header h2 {
   max-height: 40px;
   height: auto;
   width: auto;
+}
+/* ===== Rezept-Hero vollbreit ===== */
+
+.recipe-single .recipe-hero {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-bottom: 4rem;
+}
+
+.recipe-single .recipe-hero-inner {
+  max-width: 1400px;     /* wie „Arbeitsfläche“ fürs Bild */
+  margin: 0 auto;
+}
+
+.recipe-single .recipe-hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* ===== Hauptlayout der Rezeptseite ===== */
+
+.recipe-page {
+  max-width: 1200px;          /* etwas breiter */
+  margin: 0 auto 6rem;
+  padding: 3rem 3rem 6rem;    /* mehr seitlich, etwas weniger oben */
+}
+
+/* Zwei Spalten: Zutaten links, Zubereitung rechts */
+.recipe-main-inner {
+  max-width: 100%;
+}
+
+.recipe-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
+  column-gap: 4.5rem;
+  row-gap: 3rem;
+}
+
+/* Zutatenliste wie im Figma (Menge links, Text rechts) */
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredient-item {
+  display: grid;
+  grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr);
+  column-gap: 1.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.ingredient-amount {
+  text-align: right;
+  font-style: italic;
+}
+
+.ingredient-unit {
+  margin-left: 0.2em;
+}
+
+.ingredient-name {
+  word-break: break-word;
+}
+
+/* Zubereitung */
+.recipe-section-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-size: 2.4rem;
+  margin: 0 0 2.2rem;
+  color: var(--brown);
+  text-transform: lowercase;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 1.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.step-text {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+/* Tipps & Hinweise */
+.recipe-tips {
+  margin-top: 5rem;
+}
+
+.tips-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 4rem;
+  row-gap: 3rem;
+}
+
+.tip-title {
+  margin: 0 0 0.8rem;
+}
+
+.tip-text {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .recipe-page {
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .recipe-columns,
+  .tips-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Rote Script-Schrift für Untertitel / Kategorien */
+.tip-title,
+.script-heading {
+  font-family: "Professor", "Brush Script MT", cursive;
+  font-size: 1.9rem;
+  color: var(--red);
+}
+
+/* Zubereitung – Nummern (01, 02, …) im Script-Look */
+.step-number {
+  font-family: "Professor", "Brush Script MT", cursive;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--red);
+}
+
+.screen-reader-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+
+.recipe-card {
+  text-align: center;
+}
+
+/* Bilder ohne Rundungen / Schatten, damit sie wie deine PNGs wirken */
+.recipe-card-img img {
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+  max-width: 260px;    /* je nach Bildgröße anpassen */
+}
+
+
+/* ===== FOOTER – Basis ===== */
+
+.site-footer {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  position: relative;
+  background: #fffdf7;      /* gleiche Hintergrundfarbe wie die Seite */
+  color: var(--brown);
+  overflow: hidden;         /* damit nichts übersteht */
+}
+
+.site-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem 6rem;     /* unten Platz lassen, damit Text über den Streifen endet */
+  position: relative;
+  z-index: 1;               /* liegt über den Streifen */
+}
+
+/* Logo links unten im Textbereich */
+.footer-logo img {
+  max-height: 40px;
+  height: auto;
+  width: auto;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+/* Links nebeneinander, du kannst das später anpassen */
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--brown);
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* ===== Streifen-Hintergrund wie im Figma ===== */
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 170px; /* Höhe der roten Streifen */
+  /* vertikale Streifen – Farben an dein Figma anpassen */
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 6px,
+      #c62039 6px 12px,
+      transparent 12px 20px,
+      #c62039 20px 24px
+    );
+  opacity: 1;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  padding: 1.5rem 2rem;
+  position: relative;
+}
+
+.footer-logo {
+  width: 110px;
+  margin-right: 3rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1rem;
+  color: #512917;
 }
 
