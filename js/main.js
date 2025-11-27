@@ -1,9 +1,31 @@
-// Smooth scroll vom Hero-Pfeil zur Intro-Section
-document.querySelector('.scroll-down')?.addEventListener('click', () => {
-  document.getElementById('intro')?.scrollIntoView({ behavior: 'smooth' });
-});
-
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("main.js läuft ✨");
+
+  /* SCROLLYTELLING: Elemente beim Scrollen einblenden */
+
+  const revealElements = document.querySelectorAll(".reveal-on-scroll");
+  console.log("Reveal-Elemente gefunden:", revealElements.length);
+
+  if (revealElements.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log("Element sichtbar:", entry.target);
+            entry.target.classList.add("is-visible");
+            obs.unobserve(entry.target); // nur einmal animieren
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+  }
+
+  /* Zutaten-Toggle (normal / vegan) */
   const toggle = document.querySelector(".ingredients-toggle");
   if (!toggle) return;
 
@@ -17,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const target = btn.dataset.target;
 
-      buttons.forEach(b => b.classList.remove("is-active"));
+      buttons.forEach((b) => b.classList.remove("is-active"));
       btn.classList.add("is-active");
 
       if (target === "vegan") {

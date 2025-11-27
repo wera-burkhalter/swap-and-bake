@@ -8,18 +8,19 @@ get_header();
 <main class="home">
 
   <!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
+  <section class="hero">
+    <div class="hero-inner">
 
-    <div class="hero-logo-img">
-      <img 
-        src="<?php echo get_template_directory_uri(); ?>/assets/img/bake&swap.png" 
-        alt="Bake & Swap Logo"
-      >
+      <div class="hero-logo-img">
+        <img 
+          src="<?php echo get_template_directory_uri(); ?>/assets/img/bake&swap.png" 
+          alt="Bake & Swap Logo"
+        >
+      </div>
+
     </div>
-  </div>
 
-    <!-- Dekobilder (später mit deinen freigestellten PNGs ersetzen) -->
+    <!-- Dekobilder -->
     <img
       class="hero-deco hero-deco-cookie"
       src="<?php echo get_template_directory_uri(); ?>/assets/img/cookie.png"
@@ -30,14 +31,11 @@ get_header();
       src="<?php echo get_template_directory_uri(); ?>/assets/img/pancake.png"
       alt="Pancake Stapel">
 
-    <button class="scroll-down" type="button" aria-label="Nach unten scrollen">
-      <span>↓</span>
-    </button>
   </section>
 
 
   <!-- INTRO -->
-  <section class="intro" id="intro">
+  <section class="intro reveal-on-scroll" id="intro">
     <div class="intro-inner">
       <p>
         Bake &amp; Swap ist kein gewöhnliches Rezeptportal. Hier geht es um die Freude am Backen,
@@ -51,7 +49,7 @@ get_header();
 
   <!-- LIEBLINGSREZEPTE -->
   <section class="favorites">
-    <div class="favorites-inner">
+    <div class="favorites-inner reveal-on-scroll">
 
       <header class="favorites-header">
         <h2 class="favorites-title">lieblings-<br>rezepte</h2>
@@ -74,12 +72,10 @@ get_header();
       <?php if ( $fav_query->have_posts() ) : ?>
         <div class="fav-layout">
           <?php
-          $index = 0;
           while ( $fav_query->have_posts() ) :
             $fav_query->the_post();
-            $index++;
 
-            // ACF Bild holen
+            // ACF-Bild holen
             $image = get_field('startseite_bild');
             if ( ! $image ) {
               // Fallback: Beitragsbild
@@ -93,12 +89,8 @@ get_header();
               $image_url = $image['url'];
               $image_alt = $image['alt'] ?: get_the_title();
             }
-
-            // Position-Klasse je nach Index (1,2,3) -> fürs Layout
-            $pos_class = 'fav-item-' . $index;
           ?>
-            <a class="fav-item <?php echo esc_attr( $pos_class ); ?>"
-               href="<?php the_permalink(); ?>">
+            <a class="fav-item" href="<?php the_permalink(); ?>">
               <img src="<?php echo esc_url( $image_url ); ?>"
                    alt="<?php echo esc_attr( $image_alt ); ?>">
             </a>
@@ -117,7 +109,31 @@ get_header();
     </div>
   </section>
 
-
 </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      console.log("Simple Scroll-Reveal läuft ✨");
+
+      const revealElements = document.querySelectorAll(".reveal-on-scroll");
+      console.log("Reveal-Elemente gefunden:", revealElements.length);
+
+      function revealOnScroll() {
+        const triggerBottom = window.innerHeight * 0.85; // etwas über dem unteren Rand
+
+        revealElements.forEach(function (el) {
+          const rect = el.getBoundingClientRect();
+          // Sobald das Element in den sichtbaren Bereich kommt:
+          if (rect.top < triggerBottom) {
+            el.classList.add("is-visible");
+          }
+        });
+      }
+
+      // Beim Laden und bei jedem Scroll prüfen
+      revealOnScroll();
+      window.addEventListener("scroll", revealOnScroll);
+    });
+  </script>
 
 <?php get_footer(); ?>

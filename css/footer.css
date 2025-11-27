@@ -1,0 +1,72 @@
+/* _footer.css – Figma-Footer */
+
+.site-footer {
+  margin-top: 5rem;
+  border-radius: 0 0 2.5rem 2.5rem;   /* gleiche Rundung wie oben */
+  overflow: hidden;                   /* damit die Streifen sauber abgeschnitten sind */
+}
+
+/* Roter Block mit Logo + Navigation */
+.footer-main {
+  background: #c62039;                /* dein Rot – ggf. anpassen */
+  color: #fffdf7;
+  text-align: center;
+  padding: 3rem 2rem 3.5rem;          /* Höhe des roten Blocks */
+}
+
+/* Logo mittig */
+.footer-logo img {
+  display: block;
+  margin: 0 auto 2rem;
+  height: 65px;                       /* bei Bedarf anpassen */
+  width: auto;
+}
+
+/* Navigation: Rezepte / Startseite */
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  font-size: 1rem;
+}
+
+.footer-nav a {
+  color: #fffdf7;
+  font: AbadiMTStd-BoldItalic, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus {
+  text-decoration: underline;
+}
+
+/* Gestreifter Abschluss unten */
+.footer-stripes {
+  height: 95px;
+  background-color: #c62039; /* Grundrot */
+  background-image: repeating-linear-gradient(
+    90deg,
+
+    /* 1) Rot breit */
+    #c62039 0 14px,
+
+    /* 2) Weiß mittel */
+    #fffdf7 14px 24px,
+
+    /* 3) Rot dünn */
+    #c62039 24px 27px,
+
+    /* 4) Weiß dünn */
+    #fffdf7 27px 30px,
+
+    /* 5) Rot dünn */
+    #c62039 30px 33px,
+
+    /* 6) Weiß breit */
+    #fffdf7 33px 51px
+  );
+}

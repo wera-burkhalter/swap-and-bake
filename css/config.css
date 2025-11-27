@@ -1,0 +1,25 @@
+/* _config.css - Globale Variablen und Fonts */
+
+/* 1) Extra Light für Fliesstext */
+@font-face {
+  font-family: "Abadi ExtraLight";
+  src: url("../fonts/AbadiExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2) Italic für Titel */
+@font-face {
+  font-family: "Abadi Italic";
+  src: url("../fonts/AbadiItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --cream: #fffdf7;   /* Hintergrund */
+  --red:   #c62039;   /* Professor-Rot */
+  --brown: #512917;  /* Text-Braun wie im Figma */
+}

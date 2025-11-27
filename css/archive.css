@@ -1,0 +1,102 @@
+/* =======================================
+   REZEPTE-ARCHIV (/rezepte/)
+   ======================================= */
+
+.recipes-archive {
+  min-height: 100vh;
+  padding: 6rem 0 6rem;
+  background-color: var(--cream);
+  /* vertikale Streifen wie im Figma */
+  background-image: repeating-linear-gradient(
+    90deg,
+    #c62039 0 14px,
+    var(--cream) 14px 28px
+  );
+}
+
+.recipes-archive-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.recipes-archive-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
+  color: var(--brown);
+  text-transform: lowercase;
+  margin: 0;
+}
+
+.recipes-list {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Ein Rezept-Balken */
+.recipe-strip {
+  margin-bottom: 3rem;
+}
+
+/* Beige Bühne für bis zu 3 Items */
+.recipe-strip-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2.5rem 3rem;
+  background: var(--cream);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+/* einzelnes Rezept im Balken (1 von max. 3) */
+.recipe-strip-item {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+  text-decoration: none;
+  color: var(--brown);
+}
+
+/* Bild eines Rezepts – ohne rechteckigen Schatten */
+.recipe-strip-item img {
+  display: block;
+  max-width: 260px;
+  margin: 0 auto;
+  height: auto;
+  border-radius: 0;
+  box-shadow: none;           /* kein Rahmen-Schatten */
+  transition: transform 0.25s ease-out;
+}
+
+/* Hover – nur leicht schweben, kein Schatten */
+.recipe-strip-item:hover img {
+  transform: translateY(-6px);
+}
+
+/* Falls du irgendwann wieder Titles anzeigen willst:
+   .recipe-strip-fallback-title { ... } kannst du später ergänzen */
+
+
+/* Mobile */
+@media (max-width: 800px) {
+  .recipes-archive {
+    padding-top: 5rem;
+  }
+
+  .recipes-list {
+    padding: 0 1.5rem;
+  }
+
+  .recipe-strip-inner {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+  }
+
+  .recipe-strip-item img {
+    max-width: 200px;
+  }
+}

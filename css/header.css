@@ -1,0 +1,22 @@
+/* _header.css - Stile für den Seiten-Header */
+
+.site-header {
+  padding: 24px 40px;
+}
+
+.site-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.site-title-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-logo-img {
+  display: block;
+  max-height: 40px;
+  height: auto;
+  width: auto;
+}

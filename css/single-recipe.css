@@ -1,0 +1,159 @@
+/* _recipe-single.css - Stile für einzelne Rezeptseiten */
+
+/* Container der einzelnen Rezeptseite */
+.recipe-page {
+  max-width: 1200px;
+  margin: 0 auto 6rem;
+  padding: 3rem 3rem 6rem;
+}
+
+/* Standard-WP-Titel auf Rezeptseiten verstecken */
+.single-recipe .entry-title {
+  display: none;
+}
+
+/* -------------------------------------------
+   HERO: Bild oben über die ganze Breite
+------------------------------------------- */
+
+/* Hero auf der Rezeptseite soll vollbreit sein */
+.recipe-single .recipe-hero {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-bottom: 4rem;
+}
+
+.recipe-single .recipe-hero-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.recipe-single .recipe-hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* -------------------------------------------
+   HAUPTBEREICH: Zutaten & Zubereitung
+------------------------------------------- */
+
+.recipe-main-inner {
+  max-width: 100%;
+}
+
+.recipe-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); /* 2 Spalten */
+  column-gap: 4.5rem;
+  row-gap: 3rem;
+  align-items: flex-start;
+}
+
+/* Zutaten-Spalte (links) */
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredient-item {
+  /* Grid für Mengen-Ausrichtung */
+  display: grid;
+  grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr);
+  column-gap: 1.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.ingredient-amount {
+  text-align: right;
+  font-style: italic;
+}
+
+.ingredient-unit {
+  margin-left: 0.2em;
+}
+
+.ingredient-name {
+  word-break: break-word;
+}
+
+/* Zubereitung (rechte Spalte) */
+.recipe-section-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-size: 2.4rem;
+  margin: 0 0 2.2rem;
+  color: var(--brown);
+  text-transform: lowercase;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 1.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.step-number {
+  font-family: "Professor", "Brush Script MT", cursive;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--red);
+}
+
+.step-text {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+/* -------------------------------------------
+   TIPPS & HINWEISE
+------------------------------------------- */
+
+.recipe-tips {
+  margin-top: 5rem;
+}
+
+.tips-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 4rem;
+  row-gap: 3rem;
+}
+
+.tip-title {
+  margin: 0 0 0.8rem;
+}
+
+.tip-text {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+/* -------------------------------------------
+   RESPONSIVE
+------------------------------------------- */
+
+@media (max-width: 900px) {
+  .recipe-page {
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .recipe-columns,
+  .tips-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

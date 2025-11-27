@@ -1,0 +1,201 @@
+/* _home.css - Startseiten-Layout (Hero, Intro, Favorites) */
+
+.home {
+  min-height: 100vh;
+}
+
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 85vh; /* Erhöht für mehr Platz */
+  display: grid;
+  place-items: center;
+  padding: 4rem 1.5rem 6rem;
+  overflow: hidden;
+}
+
+.hero-inner {
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.hero-logo-img img {
+  max-width: 100%;
+  width: clamp(320px, 70vw, 950px); 
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.hero-deco {
+  position: absolute;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.15));
+  animation: float 5s ease-in-out infinite;
+}
+
+.hero-deco-cookie {
+  --initial-rotation: -10deg;
+  left: 20%;
+  top: 40%;
+  width: clamp(100px, 16vw, 200px);
+  transform: rotate(var(--initial-rotation));
+  animation-delay: 0s;
+}
+
+.hero-deco-pancake {
+  --initial-rotation: 5deg;
+  right: 15%;
+  top: 30%;
+  width: clamp(100px, 16vw, 200px);
+  transform: rotate(var(--initial-rotation));
+  animation-delay: 1.5s;
+}
+@keyframes float {
+  0% {
+    transform: translate(0, 0px) rotate(var(--initial-rotation));
+  }
+  50% {
+    transform: translate(0, -10px) rotate(var(--initial-rotation));
+  }
+  100% {
+    transform: translate(0, 0px) rotate(var(--initial-rotation));
+  }
+}
+
+
+/* INTRO */
+.intro {
+  padding: 7rem 5rem;
+}
+
+.intro-inner {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+.intro-inner p {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  text-align: justify;
+  margin: 0;
+}
+
+/* FAVORITES – simpler, flexbasiert */
+
+.favorites {
+  padding: 6rem 3rem 5rem;
+}
+
+.favorites-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Titel links unten, wie in Figma */
+.favorites-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.8rem, 4vw, 3.6rem);
+  line-height: 1.05;
+  margin: 0;
+  color: var(--brown);
+  text-transform: lowercase;
+
+  position: absolute;
+  left: 0;
+  bottom: 100%;      /* direkt über den Bildern */
+  transform: translateY(-1.5rem);
+}
+
+/* Linie mit drei Bildern */
+.fav-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(2rem, 6vw, 4rem);
+  margin-top: 5rem;
+}
+
+.fav-item {
+  text-decoration: none;
+  display: block;
+}
+
+.fav-item img {
+  display: block;
+  width: clamp(200px, 23vw, 340px);  /* deutlich größer */
+  height: auto;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.12));
+}
+
+/* leichte Rotationen für den spielerischen Look */
+.fav-item:nth-child(1) img {
+  transform: rotate(-6deg);
+}
+.fav-item:nth-child(2) img {
+  transform: rotate(3deg);
+}
+.fav-item:nth-child(3) img {
+  transform: rotate(-3deg);
+}
+
+/* Button unterhalb links */
+.favorites-cta {
+  margin-top: 3rem;
+  text-align: left;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .favorites {
+    padding-inline: 1.5rem;
+  }
+
+  .favorites-title {
+    position: static;
+    transform: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .fav-layout {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .fav-item img {
+    width: clamp(110px, 25vw, 160px);
+  }
+
+  .favorites-cta {
+    text-align: center;
+  }
+}
+
+.recipe-card {
+  text-align: center;
+}
+
+/* Bilder ohne Rundungen / Schatten, damit sie wie deine PNGs wirken */
+.recipe-card-img img {
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+  max-width: 260px;
+}
+
+/* REVEAL ON SCROLL – Basiszustand */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 2s ease-out, transform 2s ease-out;
+}
+
+/* Sobald im Viewport */
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,57 @@
+/* _base.css - Allgemeine Stile, Typografie, Buttons */
+
+body {
+  margin: 0;
+  background: var(--cream);
+  font-family: "Abadi ExtraLight", sans-serif;
+  font-weight: 200;
+  font-size: 30px;
+  line-height: 1.4;
+  color: var(--brown);
+}
+
+img { max-width: 100%; display: block; }
+
+h1, h2, h3, .title, .favorites-header h2 {
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Rote Script-Schrift für Untertitel / Kategorien */
+.tip-title,
+.script-heading {
+  font-family: "Professor", "Brush Script MT", cursive;
+  font-size: 1.9rem;
+  color: var(--red);
+}
+
+.screen-reader-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Button */
+.btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  border: 2px solid var(--brown);
+  color: var(--brown);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.btn:hover {
+  background: var(--brown);
+  color: var(--cream);
+  transition: background .2s ease, color .2s ease;
+}
