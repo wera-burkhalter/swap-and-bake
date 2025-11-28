@@ -52,7 +52,7 @@ get_header();
     <div class="favorites-inner reveal-on-scroll">
 
       <header class="favorites-header">
-        <h2 class="favorites-title">lieblings-<br>rezepte</h2>
+        <h2 class="favorites-title">lieblingsrezepte</h2>
       </header>
 
       <?php
