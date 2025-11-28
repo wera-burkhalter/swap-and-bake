@@ -1,12 +1,18 @@
 <?php
+// -----------------------------------------------------------
 // Theme-Setup: Bilder erlauben
+// -----------------------------------------------------------
 add_action('after_setup_theme', function () {
   add_theme_support('post-thumbnails');
 });
 
+
+// -----------------------------------------------------------
 // Styles & Scripts laden
+// -----------------------------------------------------------
 add_action('wp_enqueue_scripts', function () {
-  // Basis-CSS (style.css im Theme)
+
+  // Basis-CSS (style.css)
   wp_enqueue_style(
     'swapbake-style',
     get_stylesheet_uri(),
@@ -14,7 +20,7 @@ add_action('wp_enqueue_scripts', function () {
     '1.0'
   );
 
-  // Haupt-CSS (css/main.css im Theme)
+  // Haupt-CSS (css/main.css)
   wp_enqueue_style(
     'swapbake-main',
     get_stylesheet_directory_uri() . '/css/main.css',
@@ -22,7 +28,7 @@ add_action('wp_enqueue_scripts', function () {
     '1.0'
   );
 
-  // Haupt-JS (js/main.js im Theme)
+  // Haupt-JS (js/main.js)
   wp_enqueue_script(
     'swapbake-main-js',
     get_stylesheet_directory_uri() . '/js/main.js',
@@ -33,7 +39,9 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 
+// -----------------------------------------------------------
 // Custom Post Type: Rezepte
+// -----------------------------------------------------------
 add_action('init', function () {
   register_post_type('recipe', [
     'label'        => 'Rezepte',
@@ -41,15 +49,18 @@ add_action('init', function () {
     'has_archive'  => true,
     'rewrite'      => ['slug' => 'rezepte'],
     'menu_icon'    => 'dashicons-carrot',
-    'supports'     => ['title','editor','thumbnail'],
+    'supports'     => ['title', 'editor', 'thumbnail'],
     'show_in_rest' => true,
   ]);
 });
 
-// -----------------------------------------------------------
+
+// =====================================================================
 // VEGAN-ZUTATEN MERGEN (Standard → Überschrieben durch Vegan)
-// -----------------------------------------------------------
+// Diese Version ist exakt die funktionierende Version in deinem Projekt.
+// =====================================================================
 function merge_ingredients($normal_rows, $vegan_rows) {
+
   // Sicherheit: immer Arrays
   if (!is_array($normal_rows)) {
     $normal_rows = [];
@@ -60,8 +71,10 @@ function merge_ingredients($normal_rows, $vegan_rows) {
 
   $merged = [];
 
+  // -----------------------------------------------------------
   // 1) Vegane Overrides nach Ziel-Zutat indexieren
   //    key = name der Standard-Zutat (klein geschrieben)
+  // -----------------------------------------------------------
   $override_map = [];
 
   foreach ($vegan_rows as $v_row) {
@@ -73,16 +86,19 @@ function merge_ingredients($normal_rows, $vegan_rows) {
     }
   }
 
-  // 2) Standard-Zutaten durchgehen und ggf. überschreiben
+  // -----------------------------------------------------------
+  // 2) Standard-Zutaten durchgehen & ggf. überschreiben
+  // -----------------------------------------------------------
   foreach ($normal_rows as $std_row) {
+
     $std_name_raw = $std_row['zutat'] ?? '';
     $std_name_key = strtolower(trim($std_name_raw));
 
-    // wir starten mit der Standard-Zutat
     $current = $std_row;
 
-    // gibt es eine vegane Variante dafür?
+    // vegane Variante vorhanden?
     if ($std_name_key !== '' && isset($override_map[$std_name_key])) {
+
       $v_row = $override_map[$std_name_key];
 
       $veg_name    = $v_row['zutat_vegan']   ?? '';
@@ -99,7 +115,7 @@ function merge_ingredients($normal_rows, $vegan_rows) {
         $current['einheit'] = $veg_einheit;
       }
 
-      // Info, dass dies eine ersetzte Zutat ist
+      // Zusatzinfos
       $current['_replaced_name']     = $std_name_raw;
       $current['_is_vegan_override'] = true;
     }
@@ -107,19 +123,50 @@ function merge_ingredients($normal_rows, $vegan_rows) {
     $merged[] = $current;
   }
 
-  // 3) Extra-vegane Zutaten anhängen (Aktion = "hinzufügen")
+  // -----------------------------------------------------------
+  // 3) Zusatz-Zutaten der veganen Liste (Aktion = "hinzufügen")
+  // -----------------------------------------------------------
   foreach ($vegan_rows as $v_row) {
+
     $aktion = $v_row['aktion'] ?? '';
+
     if ($aktion === 'hinzufügen') {
+
       $merged[] = [
-        'menge'          => $v_row['menge_vegan']   ?? '',
-        'einheit'        => $v_row['einheit_vegan'] ?? '',
-        'zutat'          => $v_row['zutat_vegan']   ?? '',
-        '_is_extra_vegan'=> true,
+        'menge'           => $v_row['menge_vegan']   ?? '',
+        'einheit'         => $v_row['einheit_vegan'] ?? '',
+        'zutat'           => $v_row['zutat_vegan']   ?? '',
+        '_is_extra_vegan' => true,
       ];
     }
   }
 
   return $merged;
 }
+
+
+// =====================================================================
+// ACF: Dropdown "bezieht_sich_auf" dynamisch mit Standardzutaten füllen
+// =====================================================================
+add_filter('acf/load_field/name=bezieht_sich_auf', function ($field) {
+
+  $field['choices'] = [];
+
+  if (!function_exists('get_field')) {
+    return $field;
+  }
+
+  $normal = get_field('zutaten_normal');
+
+  if (is_array($normal)) {
+    foreach ($normal as $row) {
+      if (!empty($row['zutat'])) {
+        $name = trim($row['zutat']);
+        $field['choices'][$name] = $name;
+      }
+    }
+  }
+
+  return $field;
+});
 

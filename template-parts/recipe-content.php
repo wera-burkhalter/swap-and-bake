@@ -72,62 +72,89 @@ if (!is_array($tipps_vegan)) {
             <?php endif; ?>
 
             <!-- STANDARD: genau die normalen Zutaten -->
-            <?php if (!empty($zutaten_normal_raw)) : ?>
-              <ul class="ingredients-list ingredients-list--normal">
-                <?php foreach ($zutaten_normal_raw as $row) :
-                  $menge   = $row['menge']   ?? '';
-                  $einheit = $row['einheit'] ?? '';
-                  $zutat   = $row['zutat']   ?? '';
-                  ?>
-                  <li class="ingredient-item">
-                    <span class="ingredient-amount">
-                      <?php if ($menge !== '' && $menge !== null) : ?>
-                        <?php echo esc_html($menge); ?>
-                      <?php endif; ?>
-                      <?php if ($einheit !== '') : ?>
-                        <span class="ingredient-unit"><?php echo esc_html($einheit); ?></span>
-                      <?php endif; ?>
-                    </span>
-                    <span class="ingredient-name">
-                      <?php echo esc_html($zutat); ?>
-                    </span>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
-            <?php endif; ?>
+<?php if (!empty($zutaten_normal_raw)) : ?>
+  <ul class="ingredients-list ingredients-list--normal">
+    <?php
+    $last_bereich = null;
+
+    foreach ($zutaten_normal_raw as $row) :
+      $bereich = trim($row['bereich'] ?? '');
+
+      // Neue Bereich-Überschrift
+      if ($bereich !== '' && $bereich !== $last_bereich) : ?>
+        <li class="ingredient-group">
+          <?php echo esc_html($bereich); ?>
+        </li>
+        <?php
+        $last_bereich = $bereich;
+      endif;
+
+      $menge   = $row['menge']   ?? '';
+      $einheit = $row['einheit'] ?? '';
+      $zutat   = $row['zutat']   ?? '';
+      ?>
+      <li class="ingredient-item">
+        <span class="ingredient-amount">
+          <?php if ($menge !== '' && $menge !== null) : ?>
+            <?php echo esc_html($menge); ?>
+          <?php endif; ?>
+          <?php if ($einheit !== '') : ?>
+            <span class="ingredient-unit"><?php echo esc_html($einheit); ?></span>
+          <?php endif; ?>
+        </span>
+        <span class="ingredient-name">
+          <?php echo esc_html($zutat); ?>
+        </span>
+      </li>
+    <?php endforeach; ?>
+  </ul>
+<?php endif; ?>
+
 
             <!-- VEGAN: aus Standard + Overrides + Extras gemergt -->
-            <?php if (!empty($zutaten_vegan_merged)) : ?>
-              <ul class="ingredients-list ingredients-list--vegan" style="display:none;">
-                <?php foreach ($zutaten_vegan_merged as $row) :
-                  $menge   = $row['menge']   ?? '';
-                  $einheit = $row['einheit'] ?? '';
-                  $zutat   = $row['zutat']   ?? '';
+<?php if (!empty($zutaten_vegan_merged)) : ?>
+  <ul class="ingredients-list ingredients-list--vegan" style="display:none;">
+    <?php
+    $last_bereich = null;
 
-                  $replaced_name = $row['_replaced_name'] ?? '';
-                  ?>
-                  <li class="ingredient-item">
-                    <span class="ingredient-amount">
-                      <?php if ($menge !== '' && $menge !== null) : ?>
-                        <?php echo esc_html($menge); ?>
-                      <?php endif; ?>
-                      <?php if ($einheit !== '') : ?>
-                        <span class="ingredient-unit"><?php echo esc_html($einheit); ?></span>
-                      <?php endif; ?>
-                    </span>
-                    <span class="ingredient-name">
-                      <?php echo esc_html($zutat); ?>
+    foreach ($zutaten_vegan_merged as $row) :
+      $bereich     = trim($row['bereich'] ?? '');
+      $menge       = $row['menge']       ?? '';
+      $einheit     = $row['einheit']     ?? '';
+      $zutat       = $row['zutat']       ?? '';
+      $ersatzinfo  = $row['ersatzinfo']  ?? '';
 
-                      <?php if ($replaced_name !== '') : ?>
-                        <span class="ingredient-note">
-                          (statt <?php echo esc_html($replaced_name); ?>)
-                        </span>
-                      <?php endif; ?>
-                    </span>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
-            <?php endif; ?>
+      // Bereich-Überschrift
+      if ($bereich !== '' && $bereich !== $last_bereich) : ?>
+        <li class="ingredient-group">
+          <?php echo esc_html($bereich); ?>
+        </li>
+        <?php
+        $last_bereich = $bereich;
+      endif;
+      ?>
+      <li class="ingredient-item">
+        <span class="ingredient-amount">
+          <?php if ($menge !== '' && $menge !== null) : ?>
+            <?php echo esc_html($menge); ?>
+          <?php endif; ?>
+          <?php if ($einheit !== '') : ?>
+            <span class="ingredient-unit"><?php echo esc_html($einheit); ?></span>
+          <?php endif; ?>
+        </span>
+        <span class="ingredient-name">
+          <?php echo esc_html($zutat); ?>
+          <?php if ($ersatzinfo !== '') : ?>
+            <span class="ingredient-note">
+              <?php echo esc_html($ersatzinfo); ?>
+            </span>
+          <?php endif; ?>
+        </span>
+      </li>
+    <?php endforeach; ?>
+  </ul>
+<?php endif; ?>
+
 
           </div><!-- /recipe-col-ingredients -->
 

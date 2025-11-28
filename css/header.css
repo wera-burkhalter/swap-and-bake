@@ -1,22 +1,93 @@
-/* _header.css - Stile für den Seiten-Header */
+/* ==========================
+   HEADER – global
+   ========================== */
 
 .site-header {
-  padding: 24px 40px;
+  width: 100%;
+  margin-bottom: 2.5rem;  /* Abstand zum Seiteninhalt */
 }
 
+/* Streifen oben – identisches Muster wie Footer */
+.site-header-stripes {
+  height: 60px;
+  background-color: #c62039;
+  background-image: repeating-linear-gradient(
+    90deg,
+
+    /* gleich wie .footer-stripes */
+    #c62039 0 14px,
+    #fffdf7 14px 24px,
+    #c62039 24px 27px,
+    #fffdf7 27px 30px,
+    #c62039 30px 33px,
+    #fffdf7 33px 51px
+  );
+}
+
+/* Roter Balken mit Logo + Navigation */
+.site-header-main {
+  background: #c62039;
+  color: #fffdf7;
+  padding: 1.1rem 0 1.3rem;   /* hier kannst du ggf. noch feintunen,
+                                 kleiner Wert = schmalerer Header */
+}
+
+/* Inhalt (zentriert, max. Breite) */
 .site-header-inner {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.site-title-link {
-  display: inline-flex;
+  padding: 0 2.5rem;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.site-logo-img {
+/* Logo links */
+.site-header-logo img {
   display: block;
-  max-height: 40px;
-  height: auto;
+  height: 50px;              /* Logo-Größe – bei Bedarf anpassen */
   width: auto;
+}
+
+/* Navigation rechts */
+.site-header-nav {
+  display: flex;
+  gap: 2.5rem;
+  font-size: 0.95rem;
+}
+
+.site-header-nav a {
+  color: #fffdf7;
+  font-family: "AbadiMTStd-BoldItalic", "Abadi Italic", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.site-header-nav a:hover,
+.site-header-nav a:focus {
+  text-decoration: underline;
+}
+
+/* -------- Responsive -------- */
+
+@media (max-width: 800px) {
+  .site-header-inner {
+    padding: 0 1.5rem;
+  }
+
+  .site-header-nav {
+    gap: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .site-header-logo img {
+    height: 42px;
+  }
+
+  .site-header {
+    margin-bottom: 2rem;
+  }
 }

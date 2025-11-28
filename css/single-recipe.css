@@ -61,35 +61,60 @@
 }
 
 /* -------------------------------------------
-   VEGAN TOGGLE BUTTONS
+   VEGAN TOGGLE BUTTONS (PILLENFORM)
 ------------------------------------------- */
 .ingredients-toggle {
   margin-top: 0;
-  margin-bottom: 2rem;
-  padding: 0 3rem;
-
+  margin-bottom: 2.5rem;
   display: flex;
-  gap: 0.75rem;
+  gap: 0.9rem;
+  align-items: center;
 }
 
 .toggle-btn {
-  background: none;
-  border: 1px solid var(--brown);
-  border-radius: 999px;
-  padding: 0.45rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--brown);
+
+  /*  ⬇️  HIER: Stadium/Ellipse-Shape  */
+  border-radius: 100% / 100%;
+
+  padding: 0.55rem 1.8rem;
   cursor: pointer;
 
   font-family: "Abadi Italic", sans-serif;
-  font-size: 1.1rem;
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1;
   color: var(--brown);
 
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+.toggle-btn:hover {
+  background: #fbe9e9;           /* ganz leichtes Rot, kannst du anpassen */
+  border-color: var(--red);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
 }
 
 .toggle-btn.is-active {
   background: var(--red);
   border-color: var(--red);
   color: var(--cream);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+}
+
+/* auf kleineren Screens etwas kompakter */
+@media (max-width: 600px) {
+  .toggle-btn {
+    padding: 0.45rem 1.4rem;
+    font-size: 0.95rem;
+  }
 }
 
 /* -------------------------------------------
@@ -157,6 +182,14 @@
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.7;
+}
+.ingredient-group {
+  grid-column: 1 / -1;              /* über beide Spalten */
+  margin-top: 1.5rem;
+  margin-bottom: 0.3rem;
+  font-family: "Abadi Italic", sans-serif;
+  font-size: 1.1rem;
+  color: var(--brown);
 }
 
 /* -------------------------------------------

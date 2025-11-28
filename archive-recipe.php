@@ -9,33 +9,41 @@ get_header();
 
 <main class="recipes-archive">
 
-  <header class="recipes-archive-header">
-    <h1 class="recipes-archive-title">alle rezepte</h1>
-  </header>
+  <!-- HERO: Streifen + Titel + Suche -->
+  <section class="recipes-hero">
+    <div class="recipes-hero-inner">
 
-  <section class="recipes-list">
+      <h1 class="recipes-hero-title">rezeptsammlung</h1>
 
-    <?php
-    // Eigene Query: max. 6 Rezepte, damit es nur 2 Balken à 3 gibt
-    $recipes_query = new WP_Query([
-      'post_type'      => 'recipe',
-      'posts_per_page' => 6,
-      'orderby'        => 'date',
-      'order'          => 'DESC',
-    ]);
-    ?>
+      <!-- Ovale Suchleiste -->
+      <form
+        class="recipes-search-container"
+        method="get"
+        action="<?php echo esc_url( home_url( '/rezepte/' ) ); ?>"
+      >
+        <input
+          type="search"
+          name="s"
+          class="recipes-search"
+          placeholder="suchen..."
+          value="<?php echo esc_attr( get_search_query() ); ?>"
+        >
+        <input type="hidden" name="post_type" value="recipe">
+      </form>
 
-    <?php if ( $recipes_query->have_posts() ) : ?>
+      <!-- Falls du später Filter willst, könntest du hier noch eine Filter-Zeile einbauen -->
 
-      <?php
-      $count = 0;
-      // Ersten Balken öffnen
-      echo '<article class="recipe-strip"><div class="recipe-strip-inner">';
+    </div>
+  </section>
 
-      while ( $recipes_query->have_posts() ) :
-        $recipes_query->the_post();
+  <!-- GRID mit Rezept-Bildern -->
+  <section class="recipes-grid">
+    <?php if ( have_posts() ) : ?>
 
-        // Bild holen – erst ACF "startseite_bild", sonst Beitragsbild
+      <?php while ( have_posts() ) : the_post(); ?>
+
+        <?php
+        // Bild holen – zuerst ACF "startseite_bild", sonst Beitragsbild
         $image = get_field('startseite_bild');
         if ( !$image && has_post_thumbnail() ) {
           $image_url = get_the_post_thumbnail_url(get_the_ID(), 'large');
@@ -44,40 +52,37 @@ get_header();
           $image_url = $image['url'];
           $image_alt = $image['alt'] ?: get_the_title();
         } else {
-          // Wenn gar kein Bild vorhanden ist, dieses Rezept überspringen
+          // kein Bild → dieses Rezept überspringen
           continue;
         }
-
-        $count++;
         ?>
 
-        <a class="recipe-strip-item" href="<?php the_permalink(); ?>">
-          <img src="<?php echo esc_url( $image_url ); ?>"
-               alt="<?php echo esc_attr( $image_alt ); ?>">
+        <a class="recipe-grid-item" href="<?php the_permalink(); ?>">
+          <img
+            src="<?php echo esc_url( $image_url ); ?>"
+            alt="<?php echo esc_attr( $image_alt ); ?>"
+          >
+          <!-- KEIN Titel darunter, weil der im Bild steckt -->
         </a>
 
-        <?php
-        // Nach jedem 3. Rezept Balken schließen und – falls noch weitere kommen – neuen öffnen
-        if ( $count % 3 === 0 && ( $recipes_query->current_post + 1 ) < $recipes_query->post_count ) {
-          echo '</div></article>';
-          echo '<article class="recipe-strip"><div class="recipe-strip-inner">';
-        }
-
-      endwhile;
-
-      // Letzten offenen Balken schließen
-      echo '</div></article>';
-
-      wp_reset_postdata();
-      ?>
+      <?php endwhile; ?>
 
     <?php else : ?>
 
       <p class="recipes-empty">Noch keine Rezepte vorhanden.</p>
 
     <?php endif; ?>
-
   </section>
+
+  <!-- Pagination (falls du mehr als 10 Rezepte hast) -->
+  <div class="recipes-pagination">
+    <?php
+    the_posts_pagination([
+      'prev_text' => '&laquo;',
+      'next_text' => '&raquo;',
+    ]);
+    ?>
+  </div>
 
 </main>
 

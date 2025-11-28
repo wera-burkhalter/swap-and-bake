@@ -1,25 +1,38 @@
 /* =======================================
    REZEPTE-ARCHIV (/rezepte/)
-   ======================================= */
+======================================= */
 
+/* Grundlayout */
 .recipes-archive {
+  background: var(--cream);
   min-height: 100vh;
-  padding: 6rem 0 6rem;
-  background-color: var(--cream);
-  /* vertikale Streifen wie im Figma */
-  background-image: repeating-linear-gradient(
-    90deg,
-    #c62039 0 14px,
-    var(--cream) 14px 28px
-  );
+  padding-bottom: 5rem;
 }
 
-.recipes-archive-header {
-  text-align: center;
-  margin-bottom: 4rem;
+/* ---------- HERO oben (Streifen + Titel + Suche) ---------- */
+
+.recipes-hero {
+  margin: 0 0 3rem;
+  padding: 4rem 0 2.5rem;
+  position: relative;
 }
 
-.recipes-archive-title {
+/* Inhalt im Hero */
+.recipes-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 3rem;
+  padding-top: 5.5rem; /* Inhalt unter die Streifen schieben */
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+/* Titel "rezeptsammlung" */
+.recipes-hero-title {
   font-family: "Abadi Italic", sans-serif;
   font-style: italic;
   font-weight: 400;
@@ -28,75 +41,100 @@
   text-transform: lowercase;
   margin: 0;
 }
+/* ---------- Ovale Suchleiste ---------- */
 
-.recipes-list {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Ein Rezept-Balken */
-.recipe-strip {
-  margin-bottom: 3rem;
-}
-
-/* Beige Bühne für bis zu 3 Items */
-.recipe-strip-inner {
+.recipes-search-container {
+  flex: 0 0 auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2.5rem;
-  padding: 2.5rem 3rem;
-  background: var(--cream);
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+  justify-content: flex-end;
 }
 
-/* einzelnes Rezept im Balken (1 von max. 3) */
-.recipe-strip-item {
-  flex: 1 1 0;
-  min-width: 0;
+.recipes-search {
+  border: 1.5px solid var(--brown);
+  border-radius: 100% / 100%;
+  background: transparent;
+  padding: 0.85rem 2rem;
+  width: 260px;
+  max-width: 100%;
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--brown);
+  text-align: center;
+  outline: none;
+}
+
+.recipes-search::placeholder {
+  color: #c62039;
+  opacity: .8;
+}
+
+.recipes-search:focus {
+  background: #fff7f9;
+  box-shadow: 0 12px 30px rgba(171, 31, 54, 0.25);
+  transform: translateY(-1px);
+}
+
+/* ---------- GRID: 3 Spalten ---------- */
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 3rem;
+}
+
+.recipe-grid-item {
   text-align: center;
   text-decoration: none;
-  color: var(--brown);
+  color: inherit;
 }
 
-/* Bild eines Rezepts – ohne rechteckigen Schatten */
-.recipe-strip-item img {
-  display: block;
+.recipe-grid-item img {
+  width: 100%;
   max-width: 260px;
   margin: 0 auto;
-  height: auto;
-  border-radius: 0;
-  box-shadow: none;           /* kein Rahmen-Schatten */
-  transition: transform 0.25s ease-out;
+  display: block;
+  transition: transform 0.25s ease;
 }
 
-/* Hover – nur leicht schweben, kein Schatten */
-.recipe-strip-item:hover img {
+.recipe-grid-item:hover img {
   transform: translateY(-6px);
 }
 
-/* Falls du irgendwann wieder Titles anzeigen willst:
-   .recipe-strip-fallback-title { ... } kannst du später ergänzen */
+/* ---------- Pagination / leere Meldung ---------- */
 
+.recipes-pagination,
+.recipes-empty {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 0 3rem;
+  font-family: "Abadi Italic", sans-serif;
+  color: var(--brown);
+}
 
-/* Mobile */
-@media (max-width: 800px) {
-  .recipes-archive {
-    padding-top: 5rem;
-  }
+/* ---------- Responsive ---------- */
 
-  .recipes-list {
+/* Responsive – untereinander auf kleineren Screens */
+@media (max-width: 900px) {
+  .recipes-hero-inner {
     padding: 0 1.5rem;
-  }
+    padding-top: 5rem;
 
-  .recipe-strip-inner {
     flex-direction: column;
-    padding: 2rem 1.5rem;
+    align-items: flex-start;
   }
 
-  .recipe-strip-item img {
-    max-width: 200px;
+  .recipes-search-container {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .recipes-search {
+    width: 100%;
+    max-width: 320px;
   }
 }
+

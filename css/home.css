@@ -142,12 +142,42 @@
   transform: rotate(-3deg);
 }
 
-/* Button unterhalb links */
+/* Wrapper nur für Positionierung, OHNE Border */
 .favorites-cta {
-  margin-top: 3rem;
-  text-align: left;
+  margin-top: 2.5rem;
+  text-align: left; /* oder center, je nach Layout */
+}
+.btn {
+  display: inline-block;
+  text-decoration: none;
+
+  background: transparent;
+  border: 1.5px solid var(--brown);
+
+  /* Figma-Ellipse */
+  border-radius: 100% / 100%;
+
+  padding: 0.55rem 1.8rem;
+  cursor: pointer;
+
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--brown);
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
 }
 
+.btn:hover {
+  background: var(--brown);
+  color: var(--cream); /* oder weiß */
+}
 /* Mobile */
 @media (max-width: 900px) {
   .favorites {

@@ -40,7 +40,7 @@ get_header();
       <p>
         Bake &amp; Swap ist kein gewöhnliches Rezeptportal. Hier geht es um die Freude am Backen,
         die Liebe zum Design und den spielerischen Umgang mit Zutaten. Jedes Rezept lässt sich
-        mit einem Klick in eine vegane Version verwandeln – die Zutaten, Mengen und Tipps passen
+        mit einem Klick in eine vegane Version verwandeln, die Zutaten, Mengen und Tipps passen
         sich automatisch an.
       </p>
     </div>
@@ -102,7 +102,7 @@ get_header();
 
       <div class="favorites-cta">
         <a class="btn" href="<?php echo esc_url( site_url('/rezepte/') ); ?>">
-          Alle Rezepte ansehen
+          alle Rezepte
         </a>
       </div>
 

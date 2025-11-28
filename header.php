@@ -1,11 +1,13 @@
 <?php
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-  <?php wp_head(); ?>
-<link rel="stylesheet" href="https://use.typekit.net/yzl8lpa.css">
 <head>
-  <meta charset="<?php bloginfo('charset'); ?>" />
+  <meta charset="<?php bloginfo( 'charset' ); ?>" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Adobe Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/yzl8lpa.css">
+
   <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -13,16 +15,28 @@
 
 <?php if ( ! is_front_page() ) : ?>
   <header class="site-header">
-    <div class="site-header-inner">
-      <a href="<?php echo esc_url( home_url('/') ); ?>" class="site-title-link">
-        <img 
-          src="<?php echo get_template_directory_uri(); ?>/assets/bake&swap.png"
-          alt="bake &amp; swap"
-          class="site-logo-img"
-        >
-      </a>
-      <!-- hier könntest du später ein Menü einbauen -->
+
+    <!-- Streifen oben (gleiches Muster wie Footer) -->
+    <div class="site-header-stripes"></div>
+
+    <!-- Roter Balken mit Logo + Navigation -->
+    <div class="site-header-main">
+      <div class="site-header-inner">
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-header-logo">
+          <img
+            src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/bake-swap-footer-logo-white.png"
+            alt="Bake &amp; Swap"
+          >
+        </a>
+
+        <nav class="site-header-nav" aria-label="Hauptnavigation">
+          <a href="<?php echo esc_url( site_url( '/rezepte/' ) ); ?>">Rezepte</a>
+          <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Startseite</a>
+        </nav>
+      </div>
     </div>
+
   </header>
 <?php endif; ?>
+
 
