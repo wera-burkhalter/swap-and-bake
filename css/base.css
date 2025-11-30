@@ -55,3 +55,83 @@ h1, h2, h3, .title, .favorites-header h2 {
   color: var(--cream);
   transition: background .2s ease, color .2s ease;
 }
+
+/* ===== Rechtstexte (Impressum / Datenschutz) ===== */
+
+.legal-page {
+  background: var(--cream);
+  min-height: 100vh;
+}
+
+.legal-inner {
+  max-width: 900px;
+  margin: 3.5rem auto 5rem;
+  padding: 0 2rem;
+}
+
+.legal-main-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 3.4vw, 2.8rem);
+  color: var(--brown);
+  text-transform: lowercase;
+  margin-bottom: 2.5rem;
+}
+
+.legal-section {
+  margin-bottom: 2rem;
+}
+
+.legal-section-title {
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--brown);
+  text-transform: lowercase;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.legal-section h3 {
+  font-family: "Abadi Italic", sans-serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--brown);
+  margin: 1.4rem 0 0.4rem;
+}
+
+.legal-section p,
+.legal-section ul {
+  font-family: "Abadi", sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--brown);
+}
+
+.legal-section ul {
+  padding-left: 1.1rem;
+}
+
+.legal-section a {
+  color: #c62039;
+  text-decoration: underline;
+}
+
+.legal-note {
+  font-family: "Abadi", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--brown);
+  opacity: 0.8;
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .legal-inner {
+    padding: 0 1.5rem;
+    margin-top: 2.5rem;
+  }
+}

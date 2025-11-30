@@ -18,6 +18,8 @@
     <nav class="footer-nav" aria-label="Footer Navigation">
       <a href="<?php echo esc_url( site_url('/rezepte/') ); ?>">Rezepte</a>
       <a href="<?php echo esc_url( home_url('/') ); ?>">Startseite</a>
+      <a href="<?php echo esc_url( site_url('/impressum/') ); ?>">Impressum</a>
+      <a href="<?php echo esc_url( site_url('/datenschutz/') ); ?>">Datenschutz</a>
     </nav>
   </div>
 
