@@ -1,88 +1,89 @@
 <?php
 /**
- * Archiv-Seite für Custom Post Type "recipe"
+ * Archive Template – Recipe Archive (Alle Rezepte)
  * URL: /rezepte/
+ * Nutzt ACF-Feld "hero_bild" für die Rezeptbilder
  */
-
 get_header();
 ?>
 
 <main class="recipes-archive">
 
-  <!-- HERO: Streifen + Titel + Suche -->
+  <!-- ===== HERO SECTION ===== -->
   <section class="recipes-hero">
     <div class="recipes-hero-inner">
+      
+      <h1 class="recipes-hero-title">ALLE REZEPTE</h1>
 
-      <h1 class="recipes-hero-title">rezeptsammlung</h1>
+      <!-- Basic/Vegan Toggle -->
+      <div class="recipes-toggle">
+        <button class="recipes-toggle-btn is-active" data-mode="basic">Basic</button>
+        <button class="recipes-toggle-btn" data-mode="vegan">Vegan</button>
+      </div>
 
-      <!-- Ovale Suchleiste -->
-      <form
-        class="recipes-search-container"
-        method="get"
-        action="<?php echo esc_url( home_url( '/rezepte/' ) ); ?>"
-      >
-        <input
-          type="search"
-          name="s"
-          class="recipes-search"
-          placeholder="suchen..."
-          value="<?php echo esc_attr( get_search_query() ); ?>"
-        >
-        <input type="hidden" name="post_type" value="recipe">
-      </form>
-
-      <!-- Falls du später Filter willst, könntest du hier noch eine Filter-Zeile einbauen -->
+      <!-- Filter Buttons -->
+      <div class="recipes-filters">
+        <button class="filter-btn is-active" data-category="alle">Alle</button>
+        <button class="filter-btn" data-category="cookies">Cookies</button>
+        <button class="filter-btn" data-category="kuchen">Kuchen</button>
+        <button class="filter-btn" data-category="divers">Divers</button>
+      </div>
 
     </div>
   </section>
 
-  <!-- GRID mit Rezept-Bildern -->
-  <section class="recipes-grid">
-    <?php if ( have_posts() ) : ?>
+  <!-- ===== REZEPT GRID ===== -->
+  <section class="recipes-grid-section">
+    <div class="recipes-grid">
+      
+      <?php if ( have_posts() ) : ?>
 
-      <?php while ( have_posts() ) : the_post(); ?>
+        <?php while ( have_posts() ) : the_post(); ?>
 
-        <?php
-        // Bild holen – zuerst ACF "startseite_bild", sonst Beitragsbild
-        $image = get_field('startseite_bild');
-        if ( !$image && has_post_thumbnail() ) {
-          $image_url = get_the_post_thumbnail_url(get_the_ID(), 'large');
-          $image_alt = get_the_title();
-        } elseif ( $image ) {
-          $image_url = $image['url'];
-          $image_alt = $image['alt'] ?: get_the_title();
-        } else {
-          // kein Bild → dieses Rezept überspringen
-          continue;
-        }
-        ?>
+          <?php
+          // WICHTIG: Nutze ACF-Feld "hero_bild" (nicht "startseite_bild")
+          $image = get_field('hero_bild');
+          
+          // Fallback: Beitragsbild
+          if ( !$image && has_post_thumbnail() ) {
+            $image_url = get_the_post_thumbnail_url(get_the_ID(), 'large');
+            $image_alt = get_the_title();
+          } elseif ( $image ) {
+            $image_url = $image['url'];
+            $image_alt = $image['alt'] ?: get_the_title();
+          } else {
+            // Kein Bild vorhanden - überspringen
+            continue;
+          }
 
-        <a class="recipe-grid-item" href="<?php the_permalink(); ?>">
-          <img
-            src="<?php echo esc_url( $image_url ); ?>"
-            alt="<?php echo esc_attr( $image_alt ); ?>"
-          >
-          <!-- KEIN Titel darunter, weil der im Bild steckt -->
-        </a>
+          // Kategorie holen (falls du ein ACF-Feld hast)
+          $category = get_field('kategorie') ?: 'divers';
+          ?>
 
-      <?php endwhile; ?>
+          <div class="recipe-grid-item" data-category="<?php echo esc_attr( strtolower($category) ); ?>">
+            <a href="<?php the_permalink(); ?>" class="recipe-grid-link">
+              <img
+                src="<?php echo esc_url( $image_url ); ?>"
+                alt="<?php echo esc_attr( $image_alt ); ?>"
+              >
+            </a>
+            <h3 class="recipe-grid-title">
+              <a href="<?php the_permalink(); ?>">
+                <?php the_title(); ?>
+              </a>
+            </h3>
+          </div>
 
-    <?php else : ?>
+        <?php endwhile; ?>
 
-      <p class="recipes-empty">Noch keine Rezepte vorhanden.</p>
+      <?php else : ?>
 
-    <?php endif; ?>
+        <p class="recipes-empty">Noch keine Rezepte vorhanden.</p>
+
+      <?php endif; ?>
+
+    </div>
   </section>
-
-  <!-- Pagination (falls du mehr als 10 Rezepte hast) -->
-  <div class="recipes-pagination">
-    <?php
-    the_posts_pagination([
-      'prev_text' => '&laquo;',
-      'next_text' => '&raquo;',
-    ]);
-    ?>
-  </div>
 
 </main>
 

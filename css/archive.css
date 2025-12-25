@@ -1,95 +1,62 @@
-
-Copy
-
-/* archive.css - Rezept-Archiv Styling */
+/* archive.css - Rezept-Archiv Styling - Mit absolutem Header */
 
 .recipes-archive {
-  background: var(--cream);
+  background: rgba(34, 23, 18, 0.56);
   min-height: 100vh;
-  padding-bottom: 4rem;
+  position: relative; /* Für absoluten Header */
 }
 
 /* ===== HERO SECTION ===== */
 .recipes-hero {
-  background: #b8a99a; /* Hellbraun/Beige aus Figma */
-  padding: 4rem 2rem 3rem;
-  text-align: center;
+  background: rgba(34, 23, 18, 0.56);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10rem 2rem 6rem; /* Mehr padding oben für Header */
 }
 
 .recipes-hero-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.recipes-hero-title {
-  font-family: "Abadi Italic", sans-serif;
-  font-style: italic;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: var(--cream);
-  text-transform: uppercase;
-  margin: 0 0 1.5rem 0;
-  letter-spacing: 0.05em;
-}
-
-/* Suchleiste */
-.recipes-search-container {
-  max-width: 500px;
-  margin: 2rem auto 0;
-}
-
-.recipes-search {
-  width: 100%;
-  padding: 0.9rem 1.8rem;
-  border-radius: 50px;
-  border: 2px solid var(--cream);
-  background: rgba(255, 253, 247, 0.95);
-  font-family: "Abadi ExtraLight", sans-serif;
-  font-size: 1rem;
-  color: var(--brown);
-  text-align: center;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.recipes-search::placeholder {
-  color: rgba(81, 41, 23, 0.5);
-  text-transform: lowercase;
-}
-
-.recipes-search:focus {
-  background: var(--cream);
-  box-shadow: 0 4px 15px rgba(81, 41, 23, 0.15);
-}
-
-/* ===== TOGGLE & FILTER SECTION ===== */
-.recipes-controls {
   max-width: 1200px;
-  margin: 3rem auto 2rem;
-  padding: 0 2rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 4rem;
 }
 
-/* Toggle Basic/Vegan */
+/* Große Überschrift - 200px */
+.recipes-hero-title {
+  font-family: "Impact", "Arial Black", sans-serif;
+  font-weight: 900;
+  font-size: 150px;
+  color: var(--cream);
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-align: center;
+  line-height: 1;
+}
+
+/* ===== TOGGLE BASIC/VEGAN ===== */
 .recipes-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.5rem;
+  gap: 0;
   background: var(--cream);
-  border-radius: 50px;
-  border: 2px solid var(--brown);
+  border-radius: 50%;
+  padding: 0.3rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .recipes-toggle-btn {
   padding: 0.6rem 2rem;
-  border-radius: 50px;
+  border-radius: 50%;
   background: transparent;
   border: none;
-  font-family: "Abadi ExtraLight", sans-serif;
-  font-size: 1rem;
+  font-family: "montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
   color: var(--brown);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -105,22 +72,23 @@ Copy
   background: rgba(81, 41, 23, 0.1);
 }
 
-/* Filter Buttons */
+/* ===== FILTER BUTTONS ===== */
 .recipes-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
 }
 
 .filter-btn {
-  padding: 0.6rem 1.8rem;
-  border-radius: 50px;
-  border: 2px solid var(--brown);
+  padding: 0.9rem 3.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--cream);
   background: transparent;
-  font-family: "Abadi ExtraLight", sans-serif;
-  font-size: 0.95rem;
-  color: var(--brown);
+  font-family: "montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--cream);
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: capitalize;
@@ -128,148 +96,184 @@ Copy
 
 .filter-btn:hover,
 .filter-btn.is-active {
-  background: var(--brown);
-  color: var(--cream);
+  background: var(--cream);
+  color: var(--brown);
 }
 
-/* ===== REZEPT GRID ===== */
+/* ===== REZEPT GRID SECTION - NORMALES BRAUN ===== */
+.recipes-grid-section {
+  background: var(--brown);
+  padding: 5rem 2rem;
+}
+
 .recipes-grid {
   max-width: 1200px;
-  margin: 3rem auto;
-  padding: 0 2rem;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: 4rem 3rem;
 }
 
 .recipe-grid-item {
-  position: relative;
+  text-align: center;
+}
+
+/* Rundes Bild */
+.recipe-grid-link {
+  display: block;
   overflow: hidden;
   border-radius: 50%;
   aspect-ratio: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 15px rgba(81, 41, 23, 0.15);
-  background: var(--brown);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-.recipe-grid-item:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(81, 41, 23, 0.25);
+.recipe-grid-link:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
-.recipe-grid-item img {
+.recipe-grid-link img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.recipe-grid-item:hover img {
+.recipe-grid-link:hover img {
   transform: scale(1.08);
 }
 
-/* Titel-Overlay (falls gewünscht) */
-.recipe-grid-item-title {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1.5rem;
-  background: linear-gradient(to top, rgba(81, 41, 23, 0.9), transparent);
-  color: var(--cream);
-  font-family: "Abadi Italic", sans-serif;
-  font-size: 1.3rem;
-  text-align: center;
-  text-transform: lowercase;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+/* Titel UNTER dem Bild */
+.recipe-grid-title {
+  margin-top: 1.5rem;
+  display: inline-block;
+  padding: 0.9rem 3rem;
+  background: var(--cream);
+  border-radius: 50%;
+  font-family: "montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--brown);
+  text-transform: capitalize;
 }
 
-.recipe-grid-item:hover .recipe-grid-item-title {
-  opacity: 1;
+.recipe-grid-title a {
+  color: var(--brown);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.recipe-grid-title a:hover {
+  opacity: 0.7;
 }
 
 /* Leere Nachricht */
 .recipes-empty {
+  grid-column: 1 / -1;
   text-align: center;
   font-size: 1.2rem;
-  color: var(--brown);
+  color: var(--cream);
   opacity: 0.6;
   padding: 4rem 2rem;
 }
 
-/* ===== PAGINATION ===== */
-.recipes-pagination {
-  max-width: 1200px;
-  margin: 4rem auto 2rem;
-  padding: 0 2rem;
-  text-align: center;
-}
-
-.recipes-pagination .page-numbers {
-  display: inline-block;
-  margin: 0 0.3rem;
-  padding: 0.5rem 1rem;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--brown);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.recipes-pagination .page-numbers:hover,
-.recipes-pagination .page-numbers.current {
-  background: var(--brown);
-  color: var(--cream);
-}
-
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1400px) {
+  .recipes-hero-title {
+    font-size: 150px;
+  }
+}
+
 @media (max-width: 1024px) {
+  .recipes-hero {
+    min-height: 80vh;
+    padding: 8rem 2rem 5rem;
+  }
+
+  .recipes-hero-inner {
+    gap: 3rem;
+  }
+
+  .recipes-hero-title {
+    font-size: 120px;
+  }
+
   .recipes-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
+    gap: 3.5rem 2.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .recipes-hero {
-    padding: 3rem 1.5rem 2.5rem;
+    min-height: auto;
+    padding: 6rem 1.5rem 4rem;
   }
 
-  .recipes-controls {
-    padding: 0 1.5rem;
+  .recipes-hero-inner {
+    gap: 2.5rem;
+  }
+
+  .recipes-hero-title {
+    font-size: 80px;
+  }
+
+  .recipes-toggle {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .recipes-toggle-btn {
+    padding: 0.6rem 1.8rem;
+    font-size: 0.9rem;
   }
 
   .recipes-filters {
     width: 100%;
     flex-direction: column;
-    align-items: stretch;
+    gap: 1rem;
+    max-width: 400px;
   }
 
   .filter-btn {
     width: 100%;
+    padding: 0.9rem 2.5rem;
   }
 
   .recipes-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 0 1.5rem;
+    gap: 3rem;
+  }
+
+  .recipes-grid-section {
+    padding: 4rem 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .recipes-hero-title {
-    font-size: 2rem;
+    font-size: 50px;
+    letter-spacing: 0.05em;
   }
 
   .recipes-toggle {
-    width: 100%;
-    justify-content: center;
+    max-width: 280px;
   }
 
   .recipes-toggle-btn {
     flex: 1;
-    padding: 0.7rem 1rem;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  .filter-btn {
+    font-size: 0.95rem;
+  }
+
+  .recipe-grid-title {
+    font-size: 0.9rem;
+    padding: 0.8rem 2.5rem;
   }
 }
 

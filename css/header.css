@@ -1,49 +1,28 @@
-/* header.css - Site Header Styling */
+/* header.css - Header Styling - Mit beiger Navigation */
 
-.site-header {
-  position: relative;
-  background: var(--cream);
-}
-
-/* ===== OBERER STREIFEN ===== */
-.site-header-stripes {
-  height: 8px;
-  background: linear-gradient(
-    to right,
-    var(--brown) 0%,
-    var(--brown) 33.33%,
-    var(--red) 33.33%,
-    var(--red) 66.66%,
-    var(--cream) 66.66%,
-    var(--cream) 100%
-  );
-}
-
-/* ===== HAUPTBEREICH MIT LOGO + NAVIGATION ===== */
+/* Header Hauptbereich */
 .site-header-main {
-  background: var(--cream);
-  padding: 1.5rem 0;
-  border-bottom: 1px solid rgba(81, 41, 23, 0.1);
+  background: rgba(34, 23, 18, 0.56);
+  padding: 1.5rem 2rem;
 }
 
 .site-header-inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* ===== LOGO ===== */
+/* Logo */
 .site-header-logo {
   display: block;
   max-width: 180px;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 
 .site-header-logo:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .site-header-logo img {
@@ -52,7 +31,7 @@
   height: auto;
 }
 
-/* ===== NAVIGATION ===== */
+/* Navigation - BEIGE FARBE */
 .site-header-nav {
   display: flex;
   gap: 2.5rem;
@@ -60,17 +39,17 @@
 }
 
 .site-header-nav a {
-  font-family: var(--font-text);
+  font-family: "montserrat", sans-serif;
   font-size: 1rem;
   font-weight: 400;
-  color: var(--brown);
+  color: var(--cream); /* BEIGE statt braun */
   text-decoration: none;
   text-transform: lowercase;
   position: relative;
   transition: color 0.2s ease;
 }
 
-/* Underline Effect on Hover */
+/* Underline Effect */
 .site-header-nav a::after {
   content: '';
   position: absolute;
@@ -78,12 +57,12 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--red);
+  background: var(--cream);
   transition: width 0.3s ease;
 }
 
 .site-header-nav a:hover {
-  color: var(--red);
+  color: var(--cream);
 }
 
 .site-header-nav a:hover::after {
@@ -92,21 +71,35 @@
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+  .site-header-main {
+    padding: 1rem 1.5rem;
+  }
+
   .site-header-inner {
-    padding: 0 1.5rem;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1.5rem;
   }
 
   .site-header-logo {
-    max-width: 140px;
+    max-width: 150px;
   }
 
   .site-header-nav {
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .site-header-nav a {
     font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header-nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .site-header-logo {
+    max-width: 130px;
   }
 }

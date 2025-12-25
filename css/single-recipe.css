@@ -1,109 +1,112 @@
-/* single-recipe.css - Einzelnes Rezept Styling */
+/* single-recipe.css - Einzelne Rezeptseite Styling */
 
-.recipe-single {
+.single-recipe {
   background: var(--cream);
-  min-height: 100vh;
 }
 
-/* ===== HERO IMAGE ===== */
+/* ===== HERO SECTION ===== */
 .recipe-hero {
-  width: 100%;
-  max-height: 60vh;
-  overflow: hidden;
-  background: var(--brown);
+  background: rgba(34, 23, 18, 0.56); /* Gleiche Farbe wie Header */
+  padding: 8rem 2rem 4rem; /* Platz für absoluten Header */
 }
 
 .recipe-hero-inner {
-  position: relative;
-  width: 100%;
-  padding-bottom: 50%; /* 2:1 Aspect Ratio */
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
 }
 
-.recipe-hero-img {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Hero Bild Links - Rund */
+.recipe-hero-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.recipe-hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* ===== MAIN CONTENT BEREICH ===== */
-.recipe-main {
-  background: var(--cream);
+/* Meta-Infos Rechts */
+.recipe-hero-meta {
+  color: var(--cream);
 }
 
-.recipe-main-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 3rem 2rem 5rem;
-}
-
-/* ===== TITEL HEADER ===== */
-.recipe-title-header {
-  margin-bottom: 2rem;
-}
-
-.recipe-title {
-  font-family: "Abadi Italic", sans-serif;
-  font-style: italic;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  color: var(--brown);
-  text-transform: lowercase;
-  margin: 0 0 1rem 0;
-}
-
-/* Kategorie-Badge (optional) */
 .recipe-category {
   display: inline-block;
-  padding: 0.4rem 1.2rem;
-  border-radius: 50px;
-  background: rgba(81, 41, 23, 0.1);
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  border: 2px solid var(--cream);
+  border-radius: 50%;
+  font-family: "montserrat", sans-serif;
   font-size: 0.9rem;
-  color: var(--brown);
+  font-weight: 400;
   text-transform: capitalize;
   margin-bottom: 1.5rem;
 }
 
-/* Meta-Informationen (Zeit, Schwierigkeit, Anzahl) */
-.recipe-meta {
+.recipe-title {
+  font-family: "Impact", "Arial Black", sans-serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin: 0 0 1rem 0;
+  line-height: 1.1;
+}
+
+.recipe-description {
+  font-family: "montserrat", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+/* Meta Badges */
+.recipe-meta-badges {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
-.recipe-meta-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.2rem;
-  background: var(--cream);
-  border: 2px solid var(--brown);
-  border-radius: 50px;
-  font-size: 0.95rem;
-  color: var(--brown);
+.meta-badge {
+  padding: 0.6rem 1.8rem;
+  background: transparent;
+  border: 2px solid var(--cream);
+  border-radius: 50%;
+  font-family: "montserrat", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--cream);
 }
 
-/* ===== TOGGLE BASIC/VEGAN ===== */
+/* Toggle Basic/Vegan */
 .ingredients-toggle {
   display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem;
+  gap: 0;
   background: var(--cream);
-  border-radius: 50px;
-  border: 2px solid var(--brown);
-  margin-bottom: 2.5rem;
+  border-radius: 50%;
+  padding: 0.3rem;
 }
 
 .toggle-btn {
-  padding: 0.6rem 2rem;
-  border-radius: 50px;
+  padding: 0.7rem 2.5rem;
+  border-radius: 50%;
   background: transparent;
   border: none;
-  font-family: "Abadi ExtraLight", sans-serif;
+  font-family: "montserrat", sans-serif;
   font-size: 1rem;
+  font-weight: 500;
   color: var(--brown);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -119,107 +122,84 @@
   background: rgba(81, 41, 23, 0.1);
 }
 
-/* ===== 2-SPALTEN LAYOUT ===== */
-.recipe-main-block {
-  margin-bottom: 4rem;
+/* ===== ZUTATEN + ZUBEREITUNG (2-Spalten) ===== */
+.recipe-content {
+  background: var(--brown);
+  padding: 5rem 2rem;
 }
 
-.recipe-columns {
+.recipe-content-inner {
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 4rem;
-  align-items: start;
 }
 
-/* ===== ZUTATEN SPALTE ===== */
-.recipe-col-ingredients {
-  background: #f5f0e8; /* Helles Beige aus Figma */
-  padding: 2.5rem;
+.recipe-column {
+  background: var(--cream);
+  padding: 3rem;
   border-radius: 20px;
 }
 
-.ingredients-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Bereich-Überschrift (z.B. "Teig") */
-.ingredient-group {
-  font-family: "Professor", "Brush Script MT", cursive;
-  font-size: 1.8rem;
+/* Section Titles - Mina Schrift */
+.section-title {
+  font-family: "mina", serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 400;
   color: var(--brown);
-  margin: 1.5rem 0 1rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(81, 41, 23, 0.2);
+  margin: 0 0 2rem 0;
+  text-transform: none;
 }
 
-.ingredient-group:first-child {
-  margin-top: 0;
+/* Zutaten Liste */
+.ingredients-list {
+  display: grid;
+  gap: 1rem;
 }
 
-/* Einzelne Zutat */
 .ingredient-item {
   display: flex;
-  gap: 1rem;
-  padding: 0.7rem 0;
-  border-bottom: 1px solid rgba(81, 41, 23, 0.08);
-  line-height: 1.4;
+  gap: 0.8rem;
+  align-items: baseline;
+  font-family: "montserrat", sans-serif;
+  font-size: 1rem;
+  color: var(--brown);
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(81, 41, 23, 0.1);
 }
 
 .ingredient-item:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 .ingredient-amount {
-  min-width: 80px;
-  font-weight: 400;
-  color: var(--brown);
-  flex-shrink: 0;
+  font-weight: 600;
+  min-width: 60px;
 }
 
 .ingredient-unit {
-  font-size: 0.9em;
+  font-weight: 400;
+  min-width: 40px;
   opacity: 0.8;
 }
 
 .ingredient-name {
+  font-weight: 400;
   flex: 1;
-  color: var(--brown);
 }
 
-.ingredient-note {
-  display: block;
-  font-size: 0.85rem;
-  color: var(--red);
-  margin-top: 0.2rem;
-  font-style: italic;
-}
-
-/* ===== ZUBEREITUNG SPALTE ===== */
-.recipe-col-steps {
-  background: var(--cream);
-  padding: 2.5rem;
-  border-radius: 20px;
-  border: 2px solid #f5f0e8;
-}
-
+/* Zubereitungsschritte */
 .steps-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  counter-reset: step-counter;
+  display: grid;
+  gap: 2rem;
 }
 
 .step-item {
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 2rem;
-  counter-increment: step-counter;
-}
-
-.step-item:last-child {
-  margin-bottom: 0;
+  align-items: flex-start;
 }
 
 .step-number {
@@ -232,134 +212,118 @@
   background: var(--brown);
   color: var(--cream);
   border-radius: 50%;
+  font-family: "montserrat", sans-serif;
+  font-size: 1rem;
   font-weight: 600;
-  font-size: 1.1rem;
-}
-
-/* Alternative: Automatische Nummerierung */
-.step-item::before {
-  content: counter(step-counter);
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--brown);
-  color: var(--cream);
-  border-radius: 50%;
-  font-weight: 600;
-  font-size: 1.1rem;
 }
 
 .step-text {
-  flex: 1;
-  line-height: 1.6;
+  font-family: "montserrat", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--brown);
   margin: 0;
   padding-top: 0.5rem;
 }
 
-/* Falls step-number manuell vorhanden, ::before ausblenden */
-.step-item .step-number ~ .step-text {
-  padding-top: 0.5rem;
-}
-
-.step-item:has(.step-number)::before {
-  display: none;
-}
-
-/* ===== TIPPS & HINWEISE ===== */
+/* ===== TIPPS SECTION ===== */
 .recipe-tips {
-  margin-top: 4rem;
-  padding-top: 3rem;
-  border-top: 2px solid rgba(81, 41, 23, 0.1);
+  background: var(--brown);
+  padding: 0 2rem 5rem;
 }
 
-.tips-title {
-  font-family: "Abadi Italic", sans-serif;
-  font-style: italic;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  color: var(--brown);
-  text-transform: lowercase;
-  margin: 0 0 2rem 0;
-  text-align: center;
+.recipe-tips-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.recipe-tips .section-title {
+  color: var(--cream);
+  margin-bottom: 3rem;
 }
 
 .tips-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-.tip-item {
-  background: #f5f0e8;
+.tip-card {
+  background: var(--cream);
   padding: 2rem;
   border-radius: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-.tip-item:hover {
+.tip-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(81, 41, 23, 0.12);
 }
 
 .tip-title {
-  font-family: "Professor", "Brush Script MT", cursive;
-  font-size: 1.6rem;
+  font-family: "mina", serif;
+  font-size: 1.5rem;
+  font-weight: 400;
   color: var(--brown);
-  margin: 0 0 0.8rem 0;
-  font-style: normal;
+  margin: 0 0 1rem 0;
 }
 
 .tip-text {
-  color: var(--brown);
+  font-family: "montserrat", sans-serif;
+  font-size: 0.95rem;
   line-height: 1.6;
+  color: var(--brown);
   margin: 0;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .recipe-columns {
+  .recipe-hero-inner {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
 
-  .recipe-col-ingredients,
-  .recipe-col-steps {
-    padding: 2rem;
+  .recipe-hero-image {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .recipe-content-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 }
 
 @media (max-width: 768px) {
-  .recipe-main-inner {
-    padding: 2rem 1.5rem 4rem;
+  .recipe-hero {
+    padding: 6rem 1.5rem 3rem;
   }
 
-  .recipe-hero-inner {
-    padding-bottom: 60%; /* Höheres Bild auf Mobile */
+  .recipe-content {
+    padding: 4rem 1.5rem;
   }
 
-  .recipe-meta {
+  .recipe-column {
+    padding: 2rem;
+  }
+
+  .recipe-meta-badges {
     flex-direction: column;
-    gap: 0.8rem;
+    align-items: flex-start;
   }
 
-  .recipe-meta-item {
-    justify-content: center;
+  .meta-badge {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
   }
 
   .ingredients-toggle {
     width: 100%;
-    justify-content: center;
+    max-width: 350px;
   }
 
   .toggle-btn {
     flex: 1;
-  }
-
-  .recipe-col-ingredients,
-  .recipe-col-steps {
-    padding: 1.5rem;
   }
 
   .tips-grid {
@@ -376,11 +340,10 @@
     gap: 1rem;
   }
 
-  .step-item::before,
   .step-number {
     width: 35px;
     height: 35px;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }
 

@@ -1,10 +1,13 @@
-// /js/main.js
+/**
+ * main.js - Bake & Swap
+ * Kombiniert: Archive-Filter + Single-Recipe Toggle
+ */
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("main.js läuft ✨");
 
   /* =========================================
-     1) SCROLL-REVEAL (Intro etc.)
+     1) SCROLL-REVEAL (Homepage Intro etc.)
   ========================================== */
   const revealElements = document.querySelectorAll(".reveal-on-scroll");
   if (revealElements.length > 0) {
@@ -24,12 +27,68 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     3) VEGAN-TOGGLE (Zutaten + Tipps)
+     2) ARCHIVE PAGE: TOGGLE BASIC/VEGAN
   ========================================== */
+  const archiveToggleBtns = document.querySelectorAll('.recipes-toggle-btn');
+  
+  if (archiveToggleBtns.length > 0) {
+    archiveToggleBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Alle Buttons inaktiv
+        archiveToggleBtns.forEach(b => b.classList.remove('is-active'));
+        // Diesen Button aktiv
+        this.classList.add('is-active');
+        
+        const mode = this.dataset.mode;
+        console.log('Archive: Modus gewechselt zu:', mode);
+        
+        // TODO: Hier später AJAX oder Seiten-Reload für vegane Rezepte
+      });
+    });
+  }
 
+  /* =========================================
+     3) ARCHIVE PAGE: FILTER NACH KATEGORIE
+  ========================================== */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const recipeItems = document.querySelectorAll('.recipe-grid-item');
+  
+  if (filterBtns.length > 0 && recipeItems.length > 0) {
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Alle Buttons inaktiv
+        filterBtns.forEach(b => b.classList.remove('is-active'));
+        // Diesen Button aktiv
+        this.classList.add('is-active');
+        
+        const category = this.dataset.category;
+        
+        // Filter anwenden
+        recipeItems.forEach(item => {
+          const itemCategory = item.dataset.category;
+          
+          if (category === 'alle' || itemCategory === category) {
+            item.style.display = 'block';
+            // Fade-In Animation
+            item.style.opacity = '0';
+            setTimeout(() => {
+              item.style.transition = 'opacity 0.3s ease';
+              item.style.opacity = '1';
+            }, 10);
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  /* =========================================
+     4) SINGLE RECIPE: VEGAN-TOGGLE (Zutaten + Tipps)
+  ========================================== */
   const toggle = document.querySelector(".ingredients-toggle");
   if (!toggle) {
-    // keine Toggle-Leiste, also nichts zu tun
+    // keine Toggle-Leiste auf dieser Seite
     return;
   }
 
@@ -46,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const hasTipsVegan  = !!tipsVegan;
 
   // --- Initial-Zustand: Standard aktiv ---
-
   if (normalList) normalList.style.display = "grid";
   if (veganList)  veganList.style.display  = "none";
 
@@ -57,13 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
     tipsVegan.style.display = "none";
   }
 
-  // Spezialfall: es gibt nur vegane Tipps → Sektion erst mal verstecken
+  // Spezialfall: nur vegane Tipps → Sektion verstecken
   if (!hasTipsNormal && hasTipsVegan && tipsSection) {
     tipsSection.style.display = "none";
   }
 
   // --- Klick-Logik für Buttons ---
-
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const target   = btn.dataset.target;
