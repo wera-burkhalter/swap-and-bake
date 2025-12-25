@@ -1,31 +1,105 @@
-/* _base.css - Allgemeine Stile, Typografie, Buttons */
+/* base.css - Allgemeine Stile, Typografie, Buttons */
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
+  padding: 0;
   background: var(--cream);
-  font-family: "Abadi ExtraLight", sans-serif;
-  font-weight: 200;
-  font-size: 30px;
-  line-height: 1.4;
+  font-family: "montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
   color: var(--brown);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-img { max-width: 100%; display: block; }
+img { 
+  max-width: 100%; 
+  display: block; 
+  height: auto;
+}
 
-h1, h2, h3, .title, .favorites-header h2 {
-  font-family: "Abadi Italic", sans-serif;
-  font-style: italic;
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== ÜBERSCHRIFTEN ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Impact", "Arial Black", sans-serif;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  line-height: 1.2;
+}
+
+/* ===== HANDSCHRIFTLICHE TITEL ===== */
+.handwriting,
+.script-title {
+  font-family: "mina", serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--red);
+  font-weight: 400;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+/* Professor für Script-Akzente */
+.script-accent {
+  font-family: "professor", cursive;
+}
+
+/* ===== PARAGRAPHEN ===== */
+p {
+  margin: 0 0 1rem 0;
+  font-family: "montserrat", sans-serif;
   font-weight: 400;
 }
 
-/* Rote Script-Schrift für Untertitel / Kategorien */
-.tip-title,
-.script-heading {
-  font-family: "Professor", "Brush Script MT", cursive;
-  font-size: 1.9rem;
-  color: var(--red);
+/* ===== BUTTONS ===== */
+.btn,
+.button {
+  display: inline-block;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  border: 2px solid var(--brown);
+  background: transparent;
+  color: var(--brown);
+  font-family: "montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
 }
 
+.btn:hover,
+.button:hover {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* Screen Reader Only */
 .screen-reader-text {
   position: absolute;
   width: 1px;
@@ -37,26 +111,20 @@ h1, h2, h3, .title, .favorites-header h2 {
   border: 0;
 }
 
-/* Button */
-.btn {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 0.65rem 1.4rem;
-  border-radius: 999px;
-  border: 2px solid var(--brown);
-  color: var(--brown);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
+/* Container / Wrapper */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.btn:hover {
-  background: var(--brown);
-  color: var(--cream);
-  transition: background .2s ease, color .2s ease;
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
 }
 
-/* ===== Rechtstexte (Impressum / Datenschutz) ===== */
+/* ===== RECHTSTEXTE (Impressum / Datenschutz) ===== */
 
 .legal-page {
   background: var(--cream);
@@ -70,12 +138,11 @@ h1, h2, h3, .title, .favorites-header h2 {
 }
 
 .legal-main-title {
-  font-family: "Abadi Italic", sans-serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.2rem, 3.4vw, 2.8rem);
+  font-family: "Impact", "Arial Black", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.2rem, 3.4vw, 3rem);
   color: var(--brown);
-  text-transform: lowercase;
+  text-transform: uppercase;
   margin-bottom: 2.5rem;
 }
 
@@ -84,47 +151,48 @@ h1, h2, h3, .title, .favorites-header h2 {
 }
 
 .legal-section-title {
-  font-family: "Abadi Italic", sans-serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.5rem;
+  font-family: "Impact", "Arial Black", sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
   color: var(--brown);
-  text-transform: lowercase;
+  text-transform: uppercase;
   margin: 1.5rem 0 0.75rem;
 }
 
 .legal-section h3 {
-  font-family: "Abadi Italic", sans-serif;
-  font-style: italic;
+  font-family: "montserrat", sans-serif;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--brown);
+  text-transform: none;
   margin: 1.4rem 0 0.4rem;
 }
 
 .legal-section p,
 .legal-section ul {
-  font-family: "Abadi", sans-serif;
-  font-size: 0.98rem;
-  line-height: 1.6;
+  font-family: "montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--brown);
 }
 
 .legal-section ul {
-  padding-left: 1.1rem;
+  padding-left: 1.5rem;
 }
 
 .legal-section a {
-  color: #c62039;
+  color: var(--red);
   text-decoration: underline;
 }
 
 .legal-note {
-  font-family: "Abadi", sans-serif;
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-family: "montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.6;
   color: var(--brown);
-  opacity: 0.8;
+  opacity: 0.75;
   margin-top: 2rem;
 }
 

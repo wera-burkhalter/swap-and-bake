@@ -1,140 +1,275 @@
-/* =======================================
-   REZEPTE-ARCHIV (/rezepte/)
-======================================= */
 
-/* Grundlayout */
+Copy
+
+/* archive.css - Rezept-Archiv Styling */
+
 .recipes-archive {
   background: var(--cream);
   min-height: 100vh;
-  padding-bottom: 5rem;
+  padding-bottom: 4rem;
 }
 
-/* ---------- HERO oben (Streifen + Titel + Suche) ---------- */
-
+/* ===== HERO SECTION ===== */
 .recipes-hero {
-  margin: 0 0 3rem;
-  padding: 4rem 0 2.5rem;
-  position: relative;
+  background: #b8a99a; /* Hellbraun/Beige aus Figma */
+  padding: 4rem 2rem 3rem;
+  text-align: center;
 }
 
-/* Inhalt im Hero */
 .recipes-hero-inner {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
-  position: relative;
-  padding: 0 3rem;
-  padding-top: 5.5rem; /* Inhalt unter die Streifen schieben */
-
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 2rem;
 }
 
-/* Titel "rezeptsammlung" */
 .recipes-hero-title {
   font-family: "Abadi Italic", sans-serif;
   font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.6rem, 4vw, 3.4rem);
-  color: var(--brown);
-  text-transform: lowercase;
-  margin: 0;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--cream);
+  text-transform: uppercase;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: 0.05em;
 }
-/* ---------- Ovale Suchleiste ---------- */
 
+/* Suchleiste */
 .recipes-search-container {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: flex-end;
+  max-width: 500px;
+  margin: 2rem auto 0;
 }
 
 .recipes-search {
-  border: 1.5px solid var(--brown);
-  border-radius: 100% / 100%;
-  background: transparent;
-  padding: 0.85rem 2rem;
-  width: 260px;
-  max-width: 100%;
-  font-family: "Abadi Italic", sans-serif;
-  font-style: italic;
-  font-size: 1.05rem;
+  width: 100%;
+  padding: 0.9rem 1.8rem;
+  border-radius: 50px;
+  border: 2px solid var(--cream);
+  background: rgba(255, 253, 247, 0.95);
+  font-family: "Abadi ExtraLight", sans-serif;
+  font-size: 1rem;
   color: var(--brown);
   text-align: center;
   outline: none;
+  transition: all 0.3s ease;
 }
 
 .recipes-search::placeholder {
-  color: #c62039;
-  opacity: .8;
+  color: rgba(81, 41, 23, 0.5);
+  text-transform: lowercase;
 }
 
 .recipes-search:focus {
-  background: #fff7f9;
-  box-shadow: 0 12px 30px rgba(171, 31, 54, 0.25);
-  transform: translateY(-1px);
+  background: var(--cream);
+  box-shadow: 0 4px 15px rgba(81, 41, 23, 0.15);
 }
 
-/* ---------- GRID: 3 Spalten ---------- */
+/* ===== TOGGLE & FILTER SECTION ===== */
+.recipes-controls {
+  max-width: 1200px;
+  margin: 3rem auto 2rem;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
 
+/* Toggle Basic/Vegan */
+.recipes-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  background: var(--cream);
+  border-radius: 50px;
+  border: 2px solid var(--brown);
+}
+
+.recipes-toggle-btn {
+  padding: 0.6rem 2rem;
+  border-radius: 50px;
+  background: transparent;
+  border: none;
+  font-family: "Abadi ExtraLight", sans-serif;
+  font-size: 1rem;
+  color: var(--brown);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+}
+
+.recipes-toggle-btn.is-active {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+.recipes-toggle-btn:hover:not(.is-active) {
+  background: rgba(81, 41, 23, 0.1);
+}
+
+/* Filter Buttons */
+.recipes-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.8rem;
+  border-radius: 50px;
+  border: 2px solid var(--brown);
+  background: transparent;
+  font-family: "Abadi ExtraLight", sans-serif;
+  font-size: 0.95rem;
+  color: var(--brown);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+}
+
+.filter-btn:hover,
+.filter-btn.is-active {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* ===== REZEPT GRID ===== */
 .recipes-grid {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto 3rem;
-  padding: 0 3rem;
+  gap: 3rem;
 }
 
 .recipe-grid-item {
-  text-align: center;
-  text-decoration: none;
-  color: inherit;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(81, 41, 23, 0.15);
+  background: var(--brown);
+}
+
+.recipe-grid-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(81, 41, 23, 0.25);
 }
 
 .recipe-grid-item img {
   width: 100%;
-  max-width: 260px;
-  margin: 0 auto;
-  display: block;
-  transition: transform 0.25s ease;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .recipe-grid-item:hover img {
-  transform: translateY(-6px);
+  transform: scale(1.08);
 }
 
-/* ---------- Pagination / leere Meldung ---------- */
-
-.recipes-pagination,
-.recipes-empty {
-  max-width: 1200px;
-  margin: 2rem auto 0;
-  padding: 0 3rem;
+/* Titel-Overlay (falls gewünscht) */
+.recipe-grid-item-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(81, 41, 23, 0.9), transparent);
+  color: var(--cream);
   font-family: "Abadi Italic", sans-serif;
-  color: var(--brown);
+  font-size: 1.3rem;
+  text-align: center;
+  text-transform: lowercase;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* ---------- Responsive ---------- */
+.recipe-grid-item:hover .recipe-grid-item-title {
+  opacity: 1;
+}
 
-/* Responsive – untereinander auf kleineren Screens */
-@media (max-width: 900px) {
-  .recipes-hero-inner {
+/* Leere Nachricht */
+.recipes-empty {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--brown);
+  opacity: 0.6;
+  padding: 4rem 2rem;
+}
+
+/* ===== PAGINATION ===== */
+.recipes-pagination {
+  max-width: 1200px;
+  margin: 4rem auto 2rem;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.recipes-pagination .page-numbers {
+  display: inline-block;
+  margin: 0 0.3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--brown);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.recipes-pagination .page-numbers:hover,
+.recipes-pagination .page-numbers.current {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .recipes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .recipes-hero {
+    padding: 3rem 1.5rem 2.5rem;
+  }
+
+  .recipes-controls {
     padding: 0 1.5rem;
-    padding-top: 5rem;
+  }
 
+  .recipes-filters {
+    width: 100%;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
   }
 
-  .recipes-search-container {
-    justify-content: flex-start;
+  .filter-btn {
     width: 100%;
   }
 
-  .recipes-search {
+  .recipes-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .recipes-hero-title {
+    font-size: 2rem;
+  }
+
+  .recipes-toggle {
     width: 100%;
-    max-width: 320px;
+    justify-content: center;
+  }
+
+  .recipes-toggle-btn {
+    flex: 1;
+    padding: 0.7rem 1rem;
   }
 }
 

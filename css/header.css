@@ -1,93 +1,112 @@
-/* ==========================
-   HEADER – global
-   ========================== */
+/* header.css - Site Header Styling */
 
 .site-header {
-  width: 100%;
-  margin-bottom: 2.5rem;  /* Abstand zum Seiteninhalt */
+  position: relative;
+  background: var(--cream);
 }
 
-/* Streifen oben – identisches Muster wie Footer */
+/* ===== OBERER STREIFEN ===== */
 .site-header-stripes {
-  height: 60px;
-  background-color: #c62039;
-  background-image: repeating-linear-gradient(
-    90deg,
-
-    /* gleich wie .footer-stripes */
-    #c62039 0 14px,
-    #fffdf7 14px 24px,
-    #c62039 24px 27px,
-    #fffdf7 27px 30px,
-    #c62039 30px 33px,
-    #fffdf7 33px 51px
+  height: 8px;
+  background: linear-gradient(
+    to right,
+    var(--brown) 0%,
+    var(--brown) 33.33%,
+    var(--red) 33.33%,
+    var(--red) 66.66%,
+    var(--cream) 66.66%,
+    var(--cream) 100%
   );
 }
 
-/* Roter Balken mit Logo + Navigation */
+/* ===== HAUPTBEREICH MIT LOGO + NAVIGATION ===== */
 .site-header-main {
-  background: #c62039;
-  color: #fffdf7;
-  padding: 1.1rem 0 1.3rem;   /* hier kannst du ggf. noch feintunen,
-                                 kleiner Wert = schmalerer Header */
+  background: var(--cream);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(81, 41, 23, 0.1);
 }
 
-/* Inhalt (zentriert, max. Breite) */
 .site-header-inner {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Logo links */
-.site-header-logo img {
+/* ===== LOGO ===== */
+.site-header-logo {
   display: block;
-  height: 50px;              /* Logo-Größe – bei Bedarf anpassen */
-  width: auto;
+  max-width: 180px;
+  transition: opacity 0.2s ease;
 }
 
-/* Navigation rechts */
+.site-header-logo:hover {
+  opacity: 0.8;
+}
+
+.site-header-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ===== NAVIGATION ===== */
 .site-header-nav {
   display: flex;
   gap: 2.5rem;
-  font-size: 0.95rem;
+  align-items: center;
 }
 
 .site-header-nav a {
-  color: #fffdf7;
-  font-family: "AbadiMTStd-BoldItalic", "Abadi Italic", sans-serif;
-  font-weight: 700;
-  font-style: italic;
+  font-family: var(--font-text);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--brown);
   text-decoration: none;
-  letter-spacing: 0.08em;
-  text-transform: none;
+  text-transform: lowercase;
+  position: relative;
+  transition: color 0.2s ease;
 }
 
-.site-header-nav a:hover,
-.site-header-nav a:focus {
-  text-decoration: underline;
+/* Underline Effect on Hover */
+.site-header-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--red);
+  transition: width 0.3s ease;
 }
 
-/* -------- Responsive -------- */
+.site-header-nav a:hover {
+  color: var(--red);
+}
 
-@media (max-width: 800px) {
+.site-header-nav a:hover::after {
+  width: 100%;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
   .site-header-inner {
     padding: 0 1.5rem;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .site-header-logo {
+    max-width: 140px;
   }
 
   .site-header-nav {
     gap: 1.5rem;
-    font-size: 0.9rem;
   }
 
-  .site-header-logo img {
-    height: 42px;
-  }
-
-  .site-header {
-    margin-bottom: 2rem;
+  .site-header-nav a {
+    font-size: 0.95rem;
   }
 }

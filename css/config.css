@@ -18,8 +18,18 @@
   font-display: swap;
 }
 
+/* Adobe Fonts */
+@import url("https://use.typekit.net/yzl8lpa.css");
+
+
 :root {
-  --cream: #fffdf7;   /* Hintergrund */
-  --red:   #c62039;   /* Professor-Rot */
-  --brown: #512917;  /* Text-Braun wie im Figma */
+  /* Farben */
+  --cream: #FFF9F6;
+  --brown: #221712;
+  
+  /* Schriften - EXAKTE Adobe Fonts Namen (kleingeschrieben!) */
+  --font-text: "montserrat", sans-serif;
+  --font-bold: "Impact", "Arial Black", sans-serif;
+  --font-handwriting: "mina", serif;
+  --font-script: "professor", cursive;
 }
