@@ -2,6 +2,7 @@
 /**
  * Einzelnes Rezept – Inhalt (Figma Design)
  * Wird von single-recipe.php eingebunden.
+ * MIT Support für vegane Zubereitung
  */
 
 // ACF-Felder holen
@@ -28,7 +29,8 @@ if (function_exists('merge_ingredients')) {
   $zutaten_vegan_merged = $zutaten_vegan_raw;
 }
 
-$zubereitung = get_field('zubereitung');
+$zubereitung_normal = get_field('zubereitung');
+$zubereitung_vegan = get_field('zubereitung_vegan');
 
 // Tipps holen
 $tipps_normal = get_field('tipps_normal');
@@ -187,11 +189,31 @@ if (!is_array($tipps_vegan)) {
       <div class="recipe-column recipe-steps">
         <h2 class="section-title">Zubereitung</h2>
 
+        <!-- STANDARD-Zubereitung -->
         <?php if (have_rows('zubereitung')) : ?>
-          <ol class="steps-list">
+          <ol class="steps-list steps-list--normal">
             <?php 
             $step_counter = 1;
             while (have_rows('zubereitung')) : the_row();
+              $nr  = get_sub_field('nr') ?: $step_counter;
+              $txt = get_sub_field('beschreibung');
+              ?>
+              <li class="step-item">
+                <span class="step-number"><?php echo sprintf('%02d', $nr); ?></span>
+                <p class="step-text"><?php echo nl2br(esc_html($txt)); ?></p>
+              </li>
+              <?php 
+              $step_counter++;
+            endwhile; ?>
+          </ol>
+        <?php endif; ?>
+
+        <!-- VEGANE Zubereitung -->
+        <?php if (have_rows('zubereitung_vegan')) : ?>
+          <ol class="steps-list steps-list--vegan" style="display:none;">
+            <?php 
+            $step_counter = 1;
+            while (have_rows('zubereitung_vegan')) : the_row();
               $nr  = get_sub_field('nr') ?: $step_counter;
               $txt = get_sub_field('beschreibung');
               ?>
@@ -218,49 +240,56 @@ if (!is_array($tipps_vegan)) {
   <?php if ($has_tips_normal || $has_tips_vegan) : ?>
   <section class="recipe-tips">
     <div class="recipe-tips-inner">
-      <h2 class="section-title">Tipps</h2>
+      
+      <!-- Tipps-Kachel mit Titel INNEN -->
+      <div class="recipe-column recipe-tips-column">
+        
+        <h2 class="section-title">Tipps</h2>
 
-      <!-- Standard-Tipps -->
-      <?php if ($has_tips_normal) : ?>
-        <div class="tips-variant tips-variant--normal">
-          <div class="tips-grid">
-            <?php foreach ($tipps_normal as $tip) :
-              $titel = $tip['title'] ?? '';
-              $text  = $tip['beschreibung'] ?? '';
-              ?>
-              <article class="tip-card">
-                <?php if ($titel) : ?>
-                  <h3 class="tip-title"><?php echo esc_html($titel); ?></h3>
-                <?php endif; ?>
-                <?php if ($text) : ?>
-                  <p class="tip-text"><?php echo nl2br(esc_html($text)); ?></p>
-                <?php endif; ?>
-              </article>
-            <?php endforeach; ?>
+        <!-- Standard-Tipps -->
+        <?php if ($has_tips_normal) : ?>
+          <div class="tips-variant tips-variant--normal">
+            <div class="tips-grid">
+              <?php foreach ($tipps_normal as $tip) :
+                $titel = $tip['title'] ?? '';
+                $text  = $tip['beschreibung'] ?? '';
+                ?>
+                <article class="tip-card">
+                  <?php if ($titel) : ?>
+                    <h3 class="tip-title"><?php echo esc_html($titel); ?></h3>
+                  <?php endif; ?>
+                  <?php if ($text) : ?>
+                    <p class="tip-text"><?php echo nl2br(esc_html($text)); ?></p>
+                  <?php endif; ?>
+                </article>
+              <?php endforeach; ?>
+            </div>
           </div>
-        </div>
-      <?php endif; ?>
+        <?php endif; ?>
 
-      <!-- Vegane Tipps -->
-      <?php if ($has_tips_vegan) : ?>
-        <div class="tips-variant tips-variant--vegan" style="display:none;">
-          <div class="tips-grid">
-            <?php foreach ($tipps_vegan as $tip) :
-              $titel = $tip['title'] ?? '';
-              $text  = $tip['beschreibung'] ?? '';
-              ?>
-              <article class="tip-card">
-                <?php if ($titel) : ?>
-                  <h3 class="tip-title"><?php echo esc_html($titel); ?></h3>
-                <?php endif; ?>
-                <?php if ($text) : ?>
-                  <p class="tip-text"><?php echo nl2br(esc_html($text)); ?></p>
-                <?php endif; ?>
-              </article>
-            <?php endforeach; ?>
+        <!-- Vegane Tipps -->
+        <?php if ($has_tips_vegan) : ?>
+          <div class="tips-variant tips-variant--vegan" style="display:none;">
+            <div class="tips-grid">
+              <?php foreach ($tipps_vegan as $tip) :
+                $titel = $tip['title'] ?? '';
+                $text  = $tip['beschreibung'] ?? '';
+                ?>
+                <article class="tip-card">
+                  <?php if ($titel) : ?>
+                    <h3 class="tip-title"><?php echo esc_html($titel); ?></h3>
+                  <?php endif; ?>
+                  <?php if ($text) : ?>
+                    <p class="tip-text"><?php echo nl2br(esc_html($text)); ?></p>
+                  <?php endif; ?>
+                </article>
+              <?php endforeach; ?>
+            </div>
           </div>
-        </div>
-      <?php endif; ?>
+        <?php endif; ?>
+
+      </div>
+
     </div>
   </section>
   <?php endif; ?>

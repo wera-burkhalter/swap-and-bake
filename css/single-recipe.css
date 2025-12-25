@@ -1,4 +1,4 @@
-/* single-recipe.css - Einzelne Rezeptseite - Kleineres Bild, weiter oben */
+/* single-recipe.css - FINAL mit Tipps-Titel */
 
 .single-recipe {
   background: var(--cream);
@@ -7,7 +7,7 @@
 /* ===== HERO SECTION ===== */
 .recipe-hero {
   background: rgba(34, 23, 18, 0.56);
-  padding: 6rem 2rem 3rem; /* Weniger padding = weiter oben */
+  padding: 6rem 2rem 3rem;
 }
 
 .recipe-hero-inner {
@@ -15,11 +15,10 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem; /* Kleinerer Gap */
+  gap: 3rem;
   align-items: center;
 }
 
-/* Hero Bild Links - KLEINER */
 .recipe-hero-image {
   position: relative;
   display: flex;
@@ -28,13 +27,12 @@
 }
 
 .recipe-hero-image img {
-  max-width: 80%; /* KLEINER: 80% statt 100% */
+  max-width: 80%;
   height: auto;
   display: block;
   filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.3));
 }
 
-/* Meta-Infos Rechts */
 .recipe-hero-meta {
   color: var(--cream);
 }
@@ -71,7 +69,6 @@
   margin-bottom: 2rem;
 }
 
-/* Meta Badges */
 .recipe-meta-badges {
   display: flex;
   gap: 1rem;
@@ -90,7 +87,6 @@
   color: var(--cream);
 }
 
-/* Toggle Basic/Vegan */
 .ingredients-toggle {
   display: inline-flex;
   gap: 0;
@@ -122,7 +118,7 @@
   background: rgba(81, 41, 23, 0.1);
 }
 
-/* ===== ZUTATEN + ZUBEREITUNG (2-Spalten) ===== */
+/* ===== ZUTATEN + ZUBEREITUNG ===== */
 .recipe-content {
   background: var(--brown);
   padding: 5rem 2rem;
@@ -142,7 +138,6 @@
   border-radius: 20px;
 }
 
-/* Section Titles - Mina Schrift */
 .section-title {
   font-family: "mina", serif;
   font-size: clamp(1.8rem, 3vw, 2.5rem);
@@ -152,7 +147,7 @@
   text-transform: none;
 }
 
-/* Zutaten Liste */
+/* Zutaten */
 .ingredients-list {
   display: grid;
   gap: 1rem;
@@ -215,7 +210,7 @@
   margin-top: 0.3rem;
 }
 
-/* Zubereitungsschritte */
+/* Zubereitung */
 .steps-list {
   display: grid;
   gap: 2rem;
@@ -265,40 +260,51 @@
   margin: 0 auto;
 }
 
-.recipe-tips .section-title {
-  color: var(--cream);
-  margin-bottom: 3rem;
+/* Tipps-Kachel (wie Zutaten/Zubereitung) */
+.recipe-tips-column {
+  background: var(--cream);
+  padding: 3rem;
+  border-radius: 20px;
+}
+
+/* Tipps-Content (ohne extra Hintergrund) */
+.tips-variant {
+  background: transparent;
+  padding: 0;
 }
 
 .tips-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
 .tip-card {
-  background: var(--cream);
-  padding: 2rem;
-  border-radius: 15px;
-  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(81, 41, 23, 0.1);
 }
 
-.tip-card:hover {
-  transform: translateY(-5px);
+.tip-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .tip-title {
-  font-family: "mina", serif;
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-family: "montserrat", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--brown);
-  margin: 0 0 1rem 0;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .tip-text {
   font-family: "montserrat", sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--brown);
   margin: 0;
 }
@@ -338,7 +344,8 @@
     padding: 4rem 1.5rem;
   }
 
-  .recipe-column {
+  .recipe-column,
+  .recipe-tips-column {
     padding: 2rem;
   }
 
@@ -362,8 +369,8 @@
     flex: 1;
   }
 
-  .tips-grid {
-    grid-template-columns: 1fr;
+  .recipe-tips {
+    padding: 0 1.5rem 4rem;
   }
 }
 
@@ -380,5 +387,9 @@
     width: 35px;
     height: 35px;
     font-size: 0.9rem;
+  }
+
+  .tip-title {
+    font-size: 1rem;
   }
 }

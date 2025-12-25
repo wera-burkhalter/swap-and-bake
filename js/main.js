@@ -1,6 +1,6 @@
 /**
  * main.js - Bake & Swap
- * Kombiniert: Archive-Filter + Single-Recipe Toggle
+ * Kombiniert: Archive-Filter + Single-Recipe Toggle (Zutaten, Zubereitung, Tipps)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     4) SINGLE RECIPE: VEGAN-TOGGLE (Zutaten + Tipps)
+     4) SINGLE RECIPE: VEGAN-TOGGLE (Zutaten + Zubereitung + Tipps)
   ========================================== */
   const toggle = document.querySelector(".ingredients-toggle");
   if (!toggle) {
@@ -92,9 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // Zutaten
   const normalList = document.querySelector(".ingredients-list--normal");
   const veganList  = document.querySelector(".ingredients-list--vegan");
 
+  // Zubereitung (NEU!)
+  const normalSteps = document.querySelector(".steps-list--normal");
+  const veganSteps  = document.querySelector(".steps-list--vegan");
+
+  // Tipps
   const tipsSection = document.querySelector(".recipe-tips");
   const tipsNormal  = document.querySelector(".tips-variant--normal");
   const tipsVegan   = document.querySelector(".tips-variant--vegan");
@@ -103,13 +109,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const hasTipsNormal = !!tipsNormal;
   const hasTipsVegan  = !!tipsVegan;
+  const hasStepsNormal = !!normalSteps;
+  const hasStepsVegan  = !!veganSteps;
 
   // --- Initial-Zustand: Standard aktiv ---
   if (normalList) normalList.style.display = "grid";
   if (veganList)  veganList.style.display  = "none";
 
+  if (normalSteps) normalSteps.style.display = "grid";
+  if (veganSteps)  veganSteps.style.display  = "none";
+
   if (hasTipsNormal && tipsNormal) {
-    tipsNormal.style.display = "grid";
+    tipsNormal.style.display = "block";
   }
   if (hasTipsVegan && tipsVegan) {
     tipsVegan.style.display = "none";
@@ -130,28 +141,32 @@ document.addEventListener("DOMContentLoaded", () => {
       buttons.forEach((b) => b.classList.remove("is-active"));
       btn.classList.add("is-active");
 
-      // Zutaten umschalten
+      // ZUTATEN umschalten
       if (normalList) normalList.style.display = showVegan ? "none" : "grid";
       if (veganList)  veganList.style.display  = showVegan ? "grid" : "none";
 
-      // Tipps-Logik
+      // ZUBEREITUNG umschalten (NEU!)
+      if (normalSteps) normalSteps.style.display = showVegan ? "none" : "grid";
+      if (veganSteps)  veganSteps.style.display  = showVegan ? "grid" : "none";
+
+      // TIPPS umschalten
       if (!tipsSection) return;
 
       if (hasTipsNormal && hasTipsVegan) {
         // beide Varianten vorhanden
         tipsSection.style.display = "block";
-        if (tipsNormal) tipsNormal.style.display = showVegan ? "none" : "grid";
-        if (tipsVegan)  tipsVegan.style.display  = showVegan ? "grid" : "none";
+        if (tipsNormal) tipsNormal.style.display = showVegan ? "none" : "block";
+        if (tipsVegan)  tipsVegan.style.display  = showVegan ? "block" : "none";
 
       } else if (hasTipsNormal && !hasTipsVegan) {
         // nur Standard-Tipps vorhanden
         tipsSection.style.display = showVegan ? "none" : "block";
-        if (tipsNormal) tipsNormal.style.display = showVegan ? "none" : "grid";
+        if (tipsNormal) tipsNormal.style.display = showVegan ? "none" : "block";
 
       } else if (!hasTipsNormal && hasTipsVegan) {
         // nur vegane Tipps vorhanden
         tipsSection.style.display = showVegan ? "block" : "none";
-        if (tipsVegan) tipsVegan.style.display = showVegan ? "grid" : "none";
+        if (tipsVegan) tipsVegan.style.display = showVegan ? "block" : "none";
       }
     });
   });
