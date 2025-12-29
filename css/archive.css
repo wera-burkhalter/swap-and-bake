@@ -1,7 +1,6 @@
 /* archive.css - Rezept-Archiv - Freigestellte Bilder */
 
 .recipes-archive {
-  background: rgba(34, 23, 18, 0.56);
   min-height: 100vh;
 }
 
@@ -28,10 +27,10 @@
 .recipes-hero-title {
   font-family: "Impact", "Arial Black", sans-serif;
   font-weight: 900;
-  font-size: 200px;
+  font-size: 150px;
   color: var(--cream);
   text-transform: uppercase;
-  margin: 0;
+  margin-bottom: 8rem;
   letter-spacing: 0.1em;
   text-align: center;
   line-height: 1;

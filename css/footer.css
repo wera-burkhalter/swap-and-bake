@@ -71,9 +71,9 @@
 
 .footer-nav a {
   color: var(--cream);
-  font-family: "Impact", "Arial Black", sans-serif;
+  font-family: "montserrat", sans-serif;;
   font-weight: 700;
-  font-style: italic;
+  font-style: light;
   font-size: 1rem;
   text-decoration: none;
   text-transform: capitalize;

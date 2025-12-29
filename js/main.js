@@ -1,13 +1,13 @@
 /**
  * main.js - Bake & Swap
- * Kombiniert: Archive-Filter + Single-Recipe Toggle (Zutaten, Zubereitung, Tipps)
+ * Mit Vegan-Modus Persistenz über localStorage (KEIN Page Reload)
  */
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("main.js läuft ✨");
 
   /* =========================================
-     1) SCROLL-REVEAL (Homepage Intro etc.)
+     1) SCROLL-REVEAL (Homepage)
   ========================================== */
   const revealElements = document.querySelectorAll(".reveal-on-scroll");
   if (revealElements.length > 0) {
@@ -27,22 +27,49 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     2) ARCHIVE PAGE: TOGGLE BASIC/VEGAN
+     2) ARCHIVE PAGE: TOGGLE MIT localStorage
   ========================================== */
   const archiveToggleBtns = document.querySelectorAll('.recipes-toggle-btn');
   
   if (archiveToggleBtns.length > 0) {
+    // Gespeicherten Modus laden
+    const savedMode = localStorage.getItem('recipeMode') || 'basic';
+    
+    // Initial: Richtigen Button aktivieren
+    archiveToggleBtns.forEach(btn => {
+      if (btn.dataset.mode === savedMode) {
+        btn.classList.add('is-active');
+      } else {
+        btn.classList.remove('is-active');
+      }
+    });
+
+    // Klick-Handler
     archiveToggleBtns.forEach(btn => {
       btn.addEventListener('click', function() {
-        // Alle Buttons inaktiv
+        const mode = this.dataset.mode;
+        
+        // Modus speichern
+        localStorage.setItem('recipeMode', mode);
+        
+        // Button-Styling
         archiveToggleBtns.forEach(b => b.classList.remove('is-active'));
-        // Diesen Button aktiv
         this.classList.add('is-active');
         
-        const mode = this.dataset.mode;
-        console.log('Archive: Modus gewechselt zu:', mode);
-        
-        // TODO: Hier später AJAX oder Seiten-Reload für vegane Rezepte
+        console.log('Archive: Modus gespeichert:', mode);
+      });
+    });
+
+    // WICHTIG: Links mit data-mode erweitern
+    document.querySelectorAll('.recipe-grid-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const mode = localStorage.getItem('recipeMode');
+        if (mode === 'vegan') {
+          e.preventDefault();
+          const url = new URL(this.href);
+          url.searchParams.set('mode', 'vegan');
+          window.location.href = url.toString();
+        }
       });
     });
   }
@@ -56,9 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (filterBtns.length > 0 && recipeItems.length > 0) {
     filterBtns.forEach(btn => {
       btn.addEventListener('click', function() {
-        // Alle Buttons inaktiv
+        // Button-Styling
         filterBtns.forEach(b => b.classList.remove('is-active'));
-        // Diesen Button aktiv
         this.classList.add('is-active');
         
         const category = this.dataset.category;
@@ -84,27 +110,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     4) SINGLE RECIPE: VEGAN-TOGGLE (Zutaten + Zubereitung + Tipps)
+     4) SINGLE RECIPE: AUTO-SWITCH + TOGGLE
   ========================================== */
   const toggle = document.querySelector(".ingredients-toggle");
   if (!toggle) {
-    // keine Toggle-Leiste auf dieser Seite
-    return;
+    return; // Keine Toggle-Leiste
   }
 
-  // Zutaten
+  // Elemente
   const normalList = document.querySelector(".ingredients-list--normal");
   const veganList  = document.querySelector(".ingredients-list--vegan");
-
-  // Zubereitung (NEU!)
   const normalSteps = document.querySelector(".steps-list--normal");
   const veganSteps  = document.querySelector(".steps-list--vegan");
-
-  // Tipps
   const tipsSection = document.querySelector(".recipe-tips");
   const tipsNormal  = document.querySelector(".tips-variant--normal");
   const tipsVegan   = document.querySelector(".tips-variant--vegan");
-
   const buttons = toggle.querySelectorAll(".toggle-btn");
 
   const hasTipsNormal = !!tipsNormal;
@@ -112,62 +132,62 @@ document.addEventListener("DOMContentLoaded", () => {
   const hasStepsNormal = !!normalSteps;
   const hasStepsVegan  = !!veganSteps;
 
-  // --- Initial-Zustand: Standard aktiv ---
-  if (normalList) normalList.style.display = "grid";
-  if (veganList)  veganList.style.display  = "none";
+  // Modus ermitteln: URL-Parameter hat Vorrang vor localStorage
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlMode = urlParams.get('mode');
+  const savedMode = localStorage.getItem('recipeMode');
+  const startVegan = urlMode === 'vegan' || (!urlMode && savedMode === 'vegan');
 
-  if (normalSteps) normalSteps.style.display = "grid";
-  if (veganSteps)  veganSteps.style.display  = "none";
+  // Funktion: Modus setzen
+  function setMode(showVegan) {
+    // Zutaten
+    if (normalList) normalList.style.display = showVegan ? "none" : "grid";
+    if (veganList)  veganList.style.display  = showVegan ? "grid" : "none";
 
-  if (hasTipsNormal && tipsNormal) {
-    tipsNormal.style.display = "block";
-  }
-  if (hasTipsVegan && tipsVegan) {
-    tipsVegan.style.display = "none";
-  }
+    // Zubereitung
+    if (normalSteps) normalSteps.style.display = showVegan ? "none" : "grid";
+    if (veganSteps)  veganSteps.style.display  = showVegan ? "grid" : "none";
 
-  // Spezialfall: nur vegane Tipps → Sektion verstecken
-  if (!hasTipsNormal && hasTipsVegan && tipsSection) {
-    tipsSection.style.display = "none";
-  }
-
-  // --- Klick-Logik für Buttons ---
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const target   = btn.dataset.target;
-      const showVegan = target === "vegan";
-
-      // Button-Styling
-      buttons.forEach((b) => b.classList.remove("is-active"));
-      btn.classList.add("is-active");
-
-      // ZUTATEN umschalten
-      if (normalList) normalList.style.display = showVegan ? "none" : "grid";
-      if (veganList)  veganList.style.display  = showVegan ? "grid" : "none";
-
-      // ZUBEREITUNG umschalten (NEU!)
-      if (normalSteps) normalSteps.style.display = showVegan ? "none" : "grid";
-      if (veganSteps)  veganSteps.style.display  = showVegan ? "grid" : "none";
-
-      // TIPPS umschalten
-      if (!tipsSection) return;
-
+    // Tipps
+    if (tipsSection) {
       if (hasTipsNormal && hasTipsVegan) {
-        // beide Varianten vorhanden
         tipsSection.style.display = "block";
         if (tipsNormal) tipsNormal.style.display = showVegan ? "none" : "block";
         if (tipsVegan)  tipsVegan.style.display  = showVegan ? "block" : "none";
-
       } else if (hasTipsNormal && !hasTipsVegan) {
-        // nur Standard-Tipps vorhanden
         tipsSection.style.display = showVegan ? "none" : "block";
         if (tipsNormal) tipsNormal.style.display = showVegan ? "none" : "block";
-
       } else if (!hasTipsNormal && hasTipsVegan) {
-        // nur vegane Tipps vorhanden
         tipsSection.style.display = showVegan ? "block" : "none";
         if (tipsVegan) tipsVegan.style.display = showVegan ? "block" : "none";
       }
+    }
+
+    // Button-Styling
+    buttons.forEach((btn) => {
+      const btnMode = btn.dataset.target;
+      if ((showVegan && btnMode === 'vegan') || (!showVegan && btnMode === 'normal')) {
+        btn.classList.add('is-active');
+      } else {
+        btn.classList.remove('is-active');
+      }
+    });
+  }
+
+  // Initial setzen
+  setMode(startVegan);
+
+  // Button-Klick Handler
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.target;
+      const showVegan = target === "vegan";
+      
+      // Modus wechseln
+      setMode(showVegan);
+      
+      // In localStorage speichern
+      localStorage.setItem('recipeMode', showVegan ? 'vegan' : 'basic');
     });
   });
 });

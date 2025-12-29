@@ -1,16 +1,37 @@
 <?php
 /**
- * Einzelnes Rezept – Inhalt (Figma Design)
- * Wird von single-recipe.php eingebunden.
- * MIT Support für vegane Zubereitung
+ * Einzelnes Rezept – Inhalt (SAFE - All Fields Array-Safe)
  */
 
-// ACF-Felder holen
+// Hilfsfunktion: Extrahiert String aus Array oder gibt String zurück
+function get_string_value($value) {
+  if (empty($value)) {
+    return '';
+  }
+  
+  if (is_array($value)) {
+    // Wenn Array, nimm ersten Wert
+    if (isset($value[0])) {
+      $first = $value[0];
+      // Wenn der erste Wert auch ein Array ist (z.B. ['label' => 'X'])
+      if (is_array($first)) {
+        return $first['label'] ?? $first['value'] ?? '';
+      }
+      return $first;
+    }
+    // Wenn kein numerischer Index, probiere label/value
+    return $value['label'] ?? $value['value'] ?? '';
+  }
+  
+  return $value;
+}
+
+// ACF-Felder holen und sicher in Strings umwandeln
 $hero_bild = get_field('hero_bild');
-$kategorie = get_field('kategorie') ?: 'Divers';
-$zeit = get_field('zeit') ?: '30 min';
-$schwierigkeit = get_field('schwierigkeit') ?: 'Mittel';
-$portionen = get_field('portionen') ?: '4 Stk.';
+$kategorie = get_string_value(get_field('kategorie'));
+$zeit = get_string_value(get_field('zeit'));
+$schwierigkeit = get_string_value(get_field('schwierigkeit'));
+$portionen = get_string_value(get_field('portionen'));
 
 $zutaten_normal_raw = get_field('zutaten_normal');
 $zutaten_vegan_raw  = get_field('zutaten_vegan');
@@ -65,7 +86,9 @@ if (!is_array($tipps_vegan)) {
       <div class="recipe-hero-meta">
         
         <!-- Kategorie Badge -->
-        <span class="recipe-category"><?php echo esc_html($kategorie); ?></span>
+        <?php if (!empty($kategorie)) : ?>
+          <span class="recipe-category"><?php echo esc_html(ucfirst($kategorie)); ?></span>
+        <?php endif; ?>
 
         <!-- Titel -->
         <h1 class="recipe-title"><?php the_title(); ?></h1>
@@ -77,9 +100,33 @@ if (!is_array($tipps_vegan)) {
 
         <!-- Meta Badges -->
         <div class="recipe-meta-badges">
-          <span class="meta-badge"><?php echo esc_html($zeit); ?></span>
-          <span class="meta-badge"><?php echo esc_html($schwierigkeit); ?></span>
-          <span class="meta-badge"><?php echo esc_html($portionen); ?></span>
+          <?php if (!empty($zeit)) : ?>
+            <span class="meta-badge">
+              <?php 
+              echo esc_html($zeit);
+              // Füge "min" hinzu wenn nicht vorhanden
+              if (!preg_match('/min|minute/i', $zeit)) {
+                echo ' min';
+              }
+              ?>
+            </span>
+          <?php endif; ?>
+          
+          <?php if (!empty($schwierigkeit)) : ?>
+            <span class="meta-badge"><?php echo esc_html(ucfirst($schwierigkeit)); ?></span>
+          <?php endif; ?>
+          
+          <?php if (!empty($portionen)) : ?>
+            <span class="meta-badge">
+              <?php 
+              echo esc_html($portionen);
+              // Füge "Stk." hinzu wenn Zahl und nicht vorhanden
+              if (is_numeric($portionen) || (!preg_match('/stk|stück|portion|person/i', $portionen))) {
+                echo ' Stk.';
+              }
+              ?>
+            </span>
+          <?php endif; ?>
         </div>
 
         <!-- Basic/Vegan Toggle -->
@@ -110,7 +157,6 @@ if (!is_array($tipps_vegan)) {
             foreach ($zutaten_normal_raw as $row) :
               $bereich = trim($row['bereich'] ?? '');
 
-              // Neue Bereich-Überschrift
               if ($bereich !== '' && $bereich !== $last_bereich) : ?>
                 <li class="ingredient-group">
                   <?php echo esc_html($bereich); ?>
@@ -140,7 +186,7 @@ if (!is_array($tipps_vegan)) {
           </ul>
         <?php endif; ?>
 
-        <!-- Vegane Zutaten (gemerged) -->
+        <!-- Vegane Zutaten -->
         <?php if (!empty($zutaten_vegan_merged)) : ?>
           <ul class="ingredients-list ingredients-list--vegan" style="display:none;">
             <?php
@@ -153,7 +199,6 @@ if (!is_array($tipps_vegan)) {
               $zutat       = $row['zutat']       ?? '';
               $ersatzinfo  = $row['ersatzinfo']  ?? '';
 
-              // Bereich-Überschrift
               if ($bereich !== '' && $bereich !== $last_bereich) : ?>
                 <li class="ingredient-group">
                   <?php echo esc_html($bereich); ?>
@@ -189,7 +234,7 @@ if (!is_array($tipps_vegan)) {
       <div class="recipe-column recipe-steps">
         <h2 class="section-title">Zubereitung</h2>
 
-        <!-- STANDARD-Zubereitung -->
+        <!-- STANDARD -->
         <?php if (have_rows('zubereitung')) : ?>
           <ol class="steps-list steps-list--normal">
             <?php 
@@ -208,7 +253,7 @@ if (!is_array($tipps_vegan)) {
           </ol>
         <?php endif; ?>
 
-        <!-- VEGANE Zubereitung -->
+        <!-- VEGAN -->
         <?php if (have_rows('zubereitung_vegan')) : ?>
           <ol class="steps-list steps-list--vegan" style="display:none;">
             <?php 
@@ -231,7 +276,7 @@ if (!is_array($tipps_vegan)) {
     </div>
   </section>
 
-  <!-- ===== TIPPS SECTION ===== -->
+  <!-- ===== TIPPS ===== -->
   <?php
   $has_tips_normal = !empty($tipps_normal);
   $has_tips_vegan  = !empty($tipps_vegan);
@@ -240,13 +285,9 @@ if (!is_array($tipps_vegan)) {
   <?php if ($has_tips_normal || $has_tips_vegan) : ?>
   <section class="recipe-tips">
     <div class="recipe-tips-inner">
-      
-      <!-- Tipps-Kachel mit Titel INNEN -->
       <div class="recipe-column recipe-tips-column">
-        
         <h2 class="section-title">Tipps</h2>
 
-        <!-- Standard-Tipps -->
         <?php if ($has_tips_normal) : ?>
           <div class="tips-variant tips-variant--normal">
             <div class="tips-grid">
@@ -267,7 +308,6 @@ if (!is_array($tipps_vegan)) {
           </div>
         <?php endif; ?>
 
-        <!-- Vegane Tipps -->
         <?php if ($has_tips_vegan) : ?>
           <div class="tips-variant tips-variant--vegan" style="display:none;">
             <div class="tips-grid">
@@ -289,7 +329,6 @@ if (!is_array($tipps_vegan)) {
         <?php endif; ?>
 
       </div>
-
     </div>
   </section>
   <?php endif; ?>
