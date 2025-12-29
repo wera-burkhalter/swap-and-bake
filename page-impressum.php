@@ -25,8 +25,6 @@ get_header();
       <p>
         Name: Wera Burkhalter<br>
         Studiengang / Hochschule: FH Graubünden – Multimedia Production<br>
-        Adresse: <strong>[Deine Postadresse hier eintragen]</strong><br>
-        E-Mail: <strong>[deine&nbsp;E-Mail-Adresse]</strong>
       </p>
     </section>
 
