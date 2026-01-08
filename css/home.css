@@ -85,7 +85,7 @@
   }
 }
 
-/* ===== INTRO + FAVORITES SECTION (BRAUN) ===== */
+/* ===== INTRO + FAVORITES SECTION  ===== */
 .intro-favorites {
   background: var(--brown);
   color: var(--cream);
@@ -93,7 +93,7 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
-  margin-bottom: 0; /* KEIN Abstand nach unten */
+  margin-bottom: 0; 
 }
 
 .intro-favorites.is-visible {
@@ -106,7 +106,7 @@
   margin: 0 auto;
 }
 
-/* Text in 2 Spalten - VERSETZT */
+/* Text in 2 Spalten */
 .intro-text-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -139,7 +139,6 @@
   margin: 0;
 }
 
-/* ===== FAVORITES IN BROWN SECTION ===== */
 .favorites-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -151,7 +150,6 @@
   padding-left: 2rem;
 }
 
-/* Titel: Mina, kleiner, schräg links */
 .favorites-title {
   font-family: "mina", serif;
   font-weight: 400;
@@ -164,7 +162,6 @@
   display: inline-block;
 }
 
-/* Grid Layout für 3 Rezepte - RECHTECKE */
 .fav-layout {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -181,7 +178,6 @@
   transform: translateY(-8px);
 }
 
-/* Rechteckiges Bild */
 .fav-item-link {
   display: block;
   overflow: hidden;
@@ -206,7 +202,6 @@
   transform: scale(1.05);
 }
 
-/* Rezepttitel UNTER dem Bild */
 .fav-item-title {
   margin-top: 1rem;
   text-align: center;

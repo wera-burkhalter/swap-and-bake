@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Gespeicherten Modus laden
     const savedMode = localStorage.getItem('recipeMode') || 'basic';
     
-    // Initial: Richtigen Button aktivieren
     archiveToggleBtns.forEach(btn => {
       if (btn.dataset.mode === savedMode) {
         btn.classList.add('is-active');
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Klick-Handler
     archiveToggleBtns.forEach(btn => {
       btn.addEventListener('click', function() {
         const mode = this.dataset.mode;
@@ -60,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // WICHTIG: Links mit data-mode erweitern
     document.querySelectorAll('.recipe-grid-link').forEach(link => {
       link.addEventListener('click', function(e) {
         const mode = localStorage.getItem('recipeMode');
@@ -114,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================================== */
   const toggle = document.querySelector(".ingredients-toggle");
   if (!toggle) {
-    return; // Keine Toggle-Leiste
+    return; 
   }
 
   // Elemente
@@ -138,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedMode = localStorage.getItem('recipeMode');
   const startVegan = urlMode === 'vegan' || (!urlMode && savedMode === 'vegan');
 
-  // Funktion: Modus setzen
+
   function setMode(showVegan) {
     // Zutaten
     if (normalList) normalList.style.display = showVegan ? "none" : "grid";

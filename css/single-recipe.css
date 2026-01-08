@@ -260,14 +260,14 @@
   margin: 0 auto;
 }
 
-/* Tipps-Kachel (wie Zutaten/Zubereitung) */
+/* Tipps-Kachel */
 .recipe-tips-column {
   background: var(--cream);
   padding: 3rem;
   border-radius: 20px;
 }
 
-/* Tipps-Content (ohne extra Hintergrund) */
+/* Tipps-Content */
 .tips-variant {
   background: transparent;
   padding: 0;

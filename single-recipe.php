@@ -2,7 +2,7 @@
 get_header();
 ?>
 
-<main class="single-recipe">  <!-- WICHTIG: Klasse geändert -->
+<main class="single-recipe"> 
   <?php
   while ( have_posts() ) :
     the_post();

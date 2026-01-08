@@ -18,9 +18,6 @@
 <?php if ( ! is_front_page() ) : ?>
   <header class="site-header">
 
-    <!-- Streifen oben -->
-    <div class="site-header-stripes"></div>
-
     <!-- Logo + Navigation -->
     <div class="site-header-main">
       <div class="site-header-inner">

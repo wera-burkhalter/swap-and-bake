@@ -16,7 +16,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(34, 23, 18, 0.56); /* Rotes Overlay mit 85% Deckkraft */
+  background: rgba(34, 23, 18, 0.56); 
   z-index: 1;
 }
 
@@ -43,7 +43,6 @@
   padding: 3.5rem 2rem 4rem;
 }
 
-/* Logo mittig */
 .footer-logo {
   display: block;
   margin: 0 auto 2.5rem;
@@ -85,23 +84,6 @@
 .footer-nav a:focus {
   opacity: 0.75;
   text-decoration: underline;
-}
-
-/* ===== GESTREIFTER RAND ===== */
-.footer-stripes {
-  position: relative;
-  z-index: 2; /* Über dem Overlay */
-  height: 95px;
-  background-color: var(--red);
-  background-image: repeating-linear-gradient(
-    90deg,
-    var(--red) 0 14px,
-    var(--cream) 14px 24px,
-    var(--red) 24px 27px,
-    var(--cream) 27px 30px,
-    var(--red) 30px 33px,
-    var(--cream) 33px 51px
-  );
 }
 
 /* ===== RESPONSIVE ===== */

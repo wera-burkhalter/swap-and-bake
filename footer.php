@@ -1,7 +1,7 @@
 <?php
 /**
  * Footer Template – Bake & Swap
- * Roter Footer mit Cookie-Hintergrund, Logo, Navigation und Streifen
+ * Footer mit Cookie-Hintergrund, Logo und Navigation
  */
 ?>
 
@@ -34,9 +34,6 @@
     </nav>
     
   </div>
-
-  <!-- Gestreifter Rand unten -->
-  <div class="footer-stripes"></div>
 
 </footer>
 

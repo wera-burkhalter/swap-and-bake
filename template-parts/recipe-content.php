@@ -93,7 +93,7 @@ if (!is_array($tipps_vegan)) {
         <!-- Titel -->
         <h1 class="recipe-title"><?php the_title(); ?></h1>
 
-        <!-- Beschreibung (optional) -->
+        <!-- Beschreibung -->
         <?php if (has_excerpt()) : ?>
           <p class="recipe-description"><?php the_excerpt(); ?></p>
         <?php endif; ?>
@@ -140,7 +140,7 @@ if (!is_array($tipps_vegan)) {
     </div>
   </section>
 
-  <!-- ===== ZUTATEN + ZUBEREITUNG (2-Spalten) ===== -->
+  <!-- ===== ZUTATEN + ZUBEREITUNG ===== -->
   <section class="recipe-content">
     <div class="recipe-content-inner">
 

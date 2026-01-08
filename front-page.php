@@ -33,14 +33,13 @@ get_header();
   </section>
 
 
-  <!-- ===== INTRO + FAVORITES SECTION (BRAUN) ===== -->
+  <!-- ===== INTRO + FAVORITES SECTION ===== -->
   <section class="intro-favorites reveal-on-scroll">
     <div class="intro-favorites-inner">
 
       <!-- Text versetzt in 2 Spalten -->
       <div class="intro-text-columns">
         
-        <!-- Rechte Spalte (oben) -->
         <div class="intro-text-right">
           <p>
             Bake &amp; Swap ist kein gewöhnliches Rezeptportal. Hier geht es um die Freude am Backen,
@@ -48,7 +47,6 @@ get_header();
           </p>
         </div>
 
-        <!-- Linke Spalte (unten) -->
         <div class="intro-text-left">
           <p>
             Jedes Rezept lässt sich mit einem Klick in eine vegane Version verwandeln, die Zutaten,
