@@ -36,7 +36,7 @@ get_header();
         <li>Referrer-URL (zuvor besuchte Seite)</li>
       </ul>
       <p>
-        Diese Daten werden ausschließlich zur technischen Bereitstellung
+        Diese Daten werden ausschliesslich zur technischen Bereitstellung
         sowie zur Sicherstellung eines stabilen Betriebs erhoben und
         nicht mit anderen Datenquellen zusammengeführt. Die Log-Dateien
         werden vom Provider nach einer angemessenen Frist automatisch gelöscht.
@@ -46,7 +46,7 @@ get_header();
     <section class="legal-section">
       <h2 class="legal-section-title">cookies</h2>
       <p>
-        Diese Website verwendet ausschließlich technisch notwendige Cookies,
+        Diese Website verwendet ausschliesslich technisch notwendige Cookies,
         die für den Betrieb des Content-Management-Systems (WordPress) oder
         sicherheitsrelevante Funktionen erforderlich sind.
       </p>
@@ -85,7 +85,7 @@ get_header();
     <section class="legal-section">
       <h2 class="legal-section-title">zweck dieser website</h2>
       <p>
-        Diese Website dient ausschließlich der Präsentation eines Hochschulprojekts.
+        Diese Website dient ausschliesslich der Präsentation eines Hochschulprojekts.
         Die Inhalte sind nicht als rechtlich bindende Informationen oder als
         kommerzielles Angebot zu verstehen.
       </p>

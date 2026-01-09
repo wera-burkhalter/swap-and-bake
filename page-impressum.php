@@ -31,7 +31,7 @@ get_header();
     <section class="legal-section">
       <h2 class="legal-section-title">art des projekts</h2>
       <p>
-        Diese Website dient ausschließlich der Präsentation eines Studienprojekts
+        Diese Website dient ausschliesslich der Präsentation eines Studienprojekts
         und richtet sich nicht an die allgemeine Öffentlichkeit als
         Dienstleistungs- oder Verkaufsangebot.
       </p>
@@ -41,7 +41,7 @@ get_header();
       <h2 class="legal-section-title">urheberrecht</h2>
       <p>
         Alle Inhalte, Bilder und Designs dieser Seite wurden im Rahmen des
-        Studienprojekts erstellt oder rechtmäßig lizenziert. Eine Nutzung,
+        Studienprojekts erstellt oder rechtmässig lizenziert. Eine Nutzung,
         Vervielfältigung oder Weitergabe ist nur mit vorheriger Zustimmung
         der Urheberin gestattet.
       </p>
